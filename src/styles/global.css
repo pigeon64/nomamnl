@@ -130,13 +130,13 @@ main { animation: page-in 900ms var(--ease-out) backwards; }
 /* Frosted glass: blur (13.6px, 15% softer than the old 16px) plus a milky haze (lighter, less contrast, softer colour).
    The clear state lists the same filters at neutral values so they animate smoothly. */
 @keyframes vt-blur-out {
-  from { filter: blur(0) brightness(1) contrast(1) saturate(1); }
-  to { filter: blur(13.6px) brightness(1.1) contrast(0.82) saturate(0.75); }
+  from { filter: blur(0); }
+  to { filter: blur(10px); }
 }
 @keyframes vt-blur-in {
-  0% { opacity: 0; filter: blur(13.6px) brightness(1.1) contrast(0.82) saturate(0.75); }
-  25% { opacity: 1; filter: blur(13.6px) brightness(1.1) contrast(0.82) saturate(0.75); }
-  100% { opacity: 1; filter: blur(0) brightness(1) contrast(1) saturate(1); }
+  0% { opacity: 0; filter: blur(10px); }
+  25% { opacity: 1; filter: blur(10px); }
+  100% { opacity: 1; filter: blur(0); }
 }
 /* normal blending: the default "plus-lighter" would brighten the two stacked pages while they overlap */
 ::view-transition-old(root), ::view-transition-new(root) { mix-blend-mode: normal; }
@@ -149,11 +149,11 @@ main { animation: page-in 900ms var(--ease-out) backwards; }
 /* Reveal on scroll: fade, rise and un-blur. Hidden only when JS runs (see Base.astro), so content never goes missing.
    --delay is set per element in Base.astro so items entering together cascade. */
 .js .reveal {
-  opacity: 0; transform: translateY(28px); filter: blur(6px);
-  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out), filter 900ms var(--ease-out);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
   transition-delay: var(--delay, 0ms);
 }
-.js .reveal.is-in { opacity: 1; transform: none; filter: none; }
+.js .reveal.is-in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
