@@ -54,8 +54,13 @@ const ogImage = new URL(image, Astro.site);
 
     <script is:inline>
       document.documentElement.classList.add('js');
-      // Loading screen only on the first page of a visit (browser tab session).
-      try { if (sessionStorage.getItem('noma-seen')) document.documentElement.classList.add('no-loader'); sessionStorage.setItem('noma-seen', '1'); } catch (e) {}
+      // Loading screen on the first page of a visit (browser tab session), and again on every reload.
+      try {
+        var nav = performance.getEntriesByType('navigation')[0];
+        var reloaded = nav && nav.type === 'reload';
+        if (sessionStorage.getItem('noma-seen') && !reloaded) document.documentElement.classList.add('no-loader');
+        sessionStorage.setItem('noma-seen', '1');
+      } catch (e) {}
     </script>
   </head>
   <body>
