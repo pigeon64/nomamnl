@@ -4,7 +4,7 @@ export const site = {
   name: 'Nomà',
   tagline: 'Objects for slow living',
   // Your live domain, no trailing slash (used for sitemap, share previews and order messages).
-  url: 'https://noma.example.com',
+  url: 'https://nomamnl.online',
 
   // Messenger: the username in your page link, e.g. m.me/nomamanila → 'nomamanila'
   messengerUsername: 'REPLACE_ME',
