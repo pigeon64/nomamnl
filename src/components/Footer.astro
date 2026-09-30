@@ -36,10 +36,10 @@ const year = new Date().getFullYear();
         </ul>
       </div>
 
-      <form class="newsletter" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="company" action="/thanks" novalidate>
+      {(site.newsletterAccessKey || import.meta.env.DEV) && (
+      <form class="newsletter" name="newsletter" data-key={site.newsletterAccessKey} novalidate>
         <h2 class="newsletter__title">Letters from Nomà</h2>
         <p>New arrivals, restocks and the occasional note on slow living. Rarely, never noisy.</p>
-        <input type="hidden" name="form-name" value="newsletter" />
         <p class="sr-only" aria-hidden="true"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
         <div class="field">
           <label for="nl-email" class="label">Email address</label>
@@ -50,6 +50,7 @@ const year = new Date().getFullYear();
           <p id="nl-error" class="field-error" aria-live="polite"></p>
         </div>
       </form>
+      )}
     </div>
 
     <hr class="rule" />
@@ -61,9 +62,9 @@ const year = new Date().getFullYear();
 </footer>
 
 <script>
-  // Inline validation for the newsletter form (and any form with .field inputs + a matching error element).
+  // Newsletter: inline validation, then a background POST to Web3Forms (no page reload, so no thanks page is needed).
   document.querySelectorAll<HTMLFormElement>('form[novalidate]').forEach((form) => {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       const email = form.querySelector<HTMLInputElement>('input[type=email]');
       const error = email && document.getElementById(email.getAttribute('aria-describedby') || '');
       if (!email || !error) return;
@@ -71,7 +72,23 @@ const year = new Date().getFullYear();
         : email.validity.typeMismatch ? 'That email doesn’t look quite right — please check it.' : '';
       error.textContent = msg;
       email.setAttribute('aria-invalid', String(!!msg));
-      if (msg) { e.preventDefault(); email.focus(); }
+      e.preventDefault();
+      if (msg) return email.focus();
+      if (form.querySelector<HTMLInputElement>('[name=company]')!.value) return; // honeypot: a bot filled the hidden field
+      const button = form.querySelector('button')!;
+      button.disabled = true;
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ access_key: form.dataset.key, subject: 'Nomà newsletter signup', from_name: 'Nomà website', email: email.value }),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        error.textContent = 'Thank you, you’re on the list.';
+      } catch {
+        error.textContent = 'Something went wrong. Please try again, or email us instead.';
+      }
+      button.disabled = false;
     });
   });
 </script>

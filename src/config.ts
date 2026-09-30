@@ -25,6 +25,10 @@ export const site = {
   // Leave empty to use src/data/products.json only. See HOW-TO-ADD-PRODUCTS.md.
   productSheetCsvUrl: '',
 
+  // Newsletter signups go to Web3Forms (free, 250/month): get an access key at web3forms.com using the email you want signups sent to.
+  // Leave empty and the footer form is hidden on the live site.
+  newsletterAccessKey: '',
+
   // Analytics — leave empty to disable. Only load after cookie consent.
   ga4Id: '', // e.g. 'G-XXXXXXXXXX'
   metaPixelId: '', // e.g. '123456789012345'
