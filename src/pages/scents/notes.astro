@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Img from '../../components/Img.astro';
+import { notes } from '../../data/notes';
+import { findImage } from '../../lib/images';
+import { products, breadcrumbLd } from '../../lib/products';
+
+// Notes come from src/data/notes.ts; a note shows once at least one product has it as its scentFamily.
+const tiles = notes
+  .filter((n) => products.some((p) => p.category === 'scents' && p.scentFamily === n.slug))
+  .map((n) => ({ ...n, img: findImage(`/images/notes/${n.slug}`) }));
+---
+<Base overlayHeader title="Shop Luxury Scents by Notes"
+  description="Find a candle or incense by how it feels: woody, floral, fresh, smoky or sweet. Luxury home scents from Nomà, delivered same-day in Metro Manila.">
+  <script type="application/ld+json" slot="head" set:html={breadcrumbLd([['Home', '/'], ['Scents', '/scents'], ['Shop by notes', '/scents/notes']])} />
+  <Hero image="scents-notes" title="Shop by notes" intro="Choose by feeling, not by label." crumbs={[['Shop', '/#collections'], ['Scents', '/scents']]} />
+
+  <section class="candlelit" aria-label="Scent families">
+  <video class="candlelit__video" src="/images/site/notes-candles.mp4" autoplay muted loop playsinline preload="metadata"
+    aria-hidden="true" disablepictureinpicture></video>
+  <div class="container">
+    {tiles.length > 0 ? (
+      <ul class="notes">
+        {tiles.map((n) => (
+          <li class="reveal">
+            <a class="note" href={`/scents?family=${n.slug}`}>
+              <span class="note__media zoom">{n.img && <Img src={n.img} alt={`${n.name} scents: ${n.mood.split('.')[0].toLowerCase()}`} sizes="(min-width: 768px) 33vw, 50vw" width={1600} height={1200} />}</span>
+              <span class="note__name">{n.name}</span>
+              <span class="note__mood">{n.mood}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">We're sorting our scents by note. In the meantime, <a class="link" href="/scents">shop all scents →</a></p>
+    )}
+  </div>
+  </section>
+</Base>
+
+<style>
+  /* Candlelit: tealight candles on video (public/images/site/notes-candles.mp4, Pixabay), blurred out of focus and
+     dimmed so the tiles stay readable. Underneath sits a warm glow, which is all reduced-motion visitors see. */
+  :global(.hero):has(+ .candlelit) { margin-bottom: 0; }
+  .candlelit {
+    position: relative; isolation: isolate; overflow: clip; background: #120c08; color: var(--cream);
+    padding-block: clamp(40px, 5vw, 72px) var(--section); margin-bottom: calc(-1 * var(--section)); /* runs into the footer */
+  }
+  .candlelit::before { /* the warm glow under the video */
+    content: ''; position: absolute; z-index: -2; pointer-events: none; border-radius: 50%;
+    left: max(-560px, -40vw); top: -520px; width: min(1400px, 110vw); aspect-ratio: 1;
+    background: radial-gradient(closest-side, rgb(206 138 70 / 0.5), rgb(120 70 32 / 0.22) 45%, rgb(18 12 8 / 0) 78%);
+  }
+  .candlelit__video {
+    position: absolute; z-index: -1; inset: -12% -8%; /* spare edge for the blur and the drift */
+    width: calc(100% + 16%); height: calc(100% + 24%); max-width: none; /* global video rule caps it at 100% */
+    object-fit: cover; pointer-events: none;
+    /* The blur, dimming (x0.42) and slight desaturation are baked into the file, so there's no live filter to repaint. */
+  }
+  @media (prefers-reduced-motion: reduce) { .candlelit__video { display: none; } }
+  /* Drift: the candles scroll a little slower than the tiles (vertical only), like the leaf shadow on the collections.
+     Longhands on purpose: the build minifier would otherwise merge them into an "animation:" shorthand with the
+     timeline inside, which browsers reject. */
+  @supports (animation-timeline: view()) {
+    .candlelit__video { animation-name: candle-drift; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); }
+    @keyframes candle-drift {
+      from { transform: translateY(-8%); }
+      to { transform: translateY(8%); }
+    }
+  }
+  .candlelit::after { /* melts into the forest-green footer below instead of stopping at a hard edge */
+    content: ''; position: absolute; z-index: -1; inset: auto 0 0; height: clamp(160px, 22vw, 320px); pointer-events: none;
+    background: linear-gradient(to bottom, rgb(30 61 50 / 0), var(--forest));
+  }
+
+  .notes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (min-width: 768px) { .notes { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+  /* Tiles: smoked glass over the candlelight, cream type */
+  .note {
+    display: grid; gap: 8px; align-content: start; height: 100%; padding: 12px 12px 24px; text-decoration: none; color: var(--cream);
+    background: rgb(18 12 8 / 0.62); border: 1px solid rgb(243 237 224 / 0.1); transition: background-color 400ms var(--ease), transform 400ms var(--ease-out);
+  }
+  .note:hover, .note:focus-visible { transform: scale(1.04); position: relative; z-index: 1; }
+  .note:hover { background: rgb(18 12 8 / 0.5); } /* lifts slightly toward the candlelight on hover */
+  @media (min-width: 768px) { .note { padding: 16px 16px 32px; } }
+  .note__media { display: block; aspect-ratio: 4 / 3; margin-bottom: 12px; background: #2a1f17; }
+  .note__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .note__name { font: 400 32px/1.1 var(--serif); }
+  .note__mood { font: 400 15px/1.5 var(--sans); }
+  .note__mood { opacity: 0.8; }
+  .note:hover .note__name { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .note:focus-visible { outline-offset: 4px; outline-color: var(--cream); }
+  /* Notes only: the footer deepens from forest into a darker green, and a blurred fade leads into it.
+     Extra specificity beats Footer's own scoped background. */
+  :global(body .footer.on-forest) { position: relative; background: linear-gradient(to bottom, var(--forest), #12261d); }
+  :global(.footer.on-forest::before) {
+    content: ''; position: absolute; inset: auto 0 100%; height: clamp(80px, 10vw, 160px); pointer-events: none;
+    background: linear-gradient(to bottom, rgb(30 61 50 / 0), var(--forest));
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000); mask-image: linear-gradient(to bottom, transparent, #000);
+  }
+  .empty { text-align: center; margin: 48px auto; }
+</style>

@@ -1,0 +1,26 @@
+---
+import InfoPage from '../components/InfoPage.astro';
+import { site, peso } from '../config';
+---
+<InfoPage title="Shipping & returns" intro={`Same-day delivery across Metro Manila, and free shipping on orders over ${peso(site.freeShippingThreshold)}.`}
+  description={`${site.name} delivery and returns: same-day delivery in Metro Manila, free shipping over ${peso(site.freeShippingThreshold)}, and easy returns on unopened pieces.`}>
+  <h2>Delivery in Metro Manila</h2>
+  <p>In-stock pieces are delivered the same day across Metro Manila. We confirm your delivery time when you order.</p>
+  <p>Shipping is free on orders over {peso(site.freeShippingThreshold)}. Below that, we'll confirm the delivery fee in chat before you pay, so there are no surprises.</p>
+
+  <h2>Outside Metro Manila</h2>
+  <p>Message us with your address and we'll let you know the options and timing.</p>
+
+  <h2>Pre-orders</h2>
+  <p>Pre-order pieces show their shipping time on the product page. We'll keep you updated and deliver as soon as they arrive.</p>
+
+  <h2>Returns</h2>
+  <p>Changed your mind? Unopened, unused pieces in their original packaging can be returned within {site.returnDays} days of delivery. Message us first and we'll arrange it.</p>
+  <p>Candles, incense and diffusers can't be returned once opened or used, since they can't be sold again.</p>
+
+  <h2>Damaged or wrong item</h2>
+  <p>We wrap everything with care, but if something arrives damaged or isn't what you ordered, message us within {site.damageReportHours} hours of delivery with a photo. We'll replace it or refund you in full.</p>
+
+  <h2>Authenticity</h2>
+  <p>Every piece is authentic, guaranteed. {site.name} is an independent reseller and isn't affiliated with the brands we carry.</p>
+</InfoPage>

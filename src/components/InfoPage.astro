@@ -1,0 +1,79 @@
+---
+// Plain text pages (How to order, Shipping & returns, FAQ, Contact): a title block, then the page's own content.
+// Content styles cover h2 sections, lists and <details> questions (FAQ).
+// Behind it, one photo spans edge to edge and stays put while the text scrolls over it on a frosted panel:
+// public/images/help/<page> (e.g. faq.jpg), falling back to help/background for every page. Until one exists the
+// backdrop is plain limestone.
+import Base from '../layouts/Base.astro';
+import Img from './Img.astro';
+import { findImage } from '../lib/images';
+interface Props { title: string; intro: string; description: string }
+const { title, intro, description } = Astro.props;
+const page = Astro.url.pathname.replace(/^\/|\/$/g, '');
+const bg = findImage(`/images/help/${page}`) ?? findImage('/images/help/background');
+---
+<Base title={title} description={description}>
+  <div class="info-wrap">
+    {bg && <Img class="info__bg" src={bg} alt="" sizes="100vw" width={2400} height={1600} priority />}
+    <article class="container info">
+      <header class="info__head">
+        <p class="label">Help</p>
+        <h1>{title}</h1>
+        <p class="info__intro">{intro}</p>
+      </header>
+      <div class="info__body"><slot /></div>
+    </article>
+  </div>
+</Base>
+
+<style>
+  /* clip-path keeps the fixed photo inside this section, so it never shows behind the header or footer */
+  /* The negative margin cancels the footer's top margin so the photo runs right down to it */
+  .info-wrap { position: relative; clip-path: inset(0); background: var(--limestone); padding: clamp(24px, 6vw, 96px) clamp(12px, 4vw, 48px); margin-bottom: calc(-1 * var(--section)); }
+  /* Still version (Firefox, reduced motion): fill the screen, crop weighted toward the lower part of the photo */
+  .info-wrap :global(.info__bg) {
+    position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 75%; filter: brightness(0.9);
+  }
+  /* Parallax: the photo keeps its full height at screen width and pans from a little below its top down to its
+     bottom edge over the page's scroll, so the whole picture gets shown. A photo shorter than the screen just stays. */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .info-wrap :global(.info__bg) {
+        bottom: auto; height: auto; min-height: 100vh; animation: info-pan linear both; animation-timeline: scroll(root);
+      }
+    }
+  }
+  /* -100% + 100vh = the photo's bottom edge on the screen's bottom edge. Starts 30% of the way there. */
+  @keyframes info-pan {
+    from { transform: translateY(calc((-100% + 100vh) * 0.3)); }
+    to { transform: translateY(calc(-100% + 100vh)); }
+  }
+  .info {
+    position: relative; max-width: 840px; padding: clamp(32px, 6vw, 72px) clamp(20px, 5vw, 72px);
+    background: rgb(243 237 224 / 0.55); border: 1px solid rgb(255 255 255 / 0.35);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2);
+  }
+  .info__head { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--gold); }
+  .info__head h1 { margin: 8px 0 12px; }
+  .info__intro { margin: 0; font-size: 18px; }
+  .info__body :global(h2) { font: 400 28px/1.2 var(--serif); margin: 48px 0 12px; }
+  .info__body :global(h2:first-child) { margin-top: 0; }
+  .info__body :global(p), .info__body :global(li) { max-width: 62ch; }
+  .info__body :global(ol), .info__body :global(ul) { padding-left: 1.2em; }
+  .info__body :global(li) { margin-bottom: 8px; }
+  .info__body :global(a:not(.btn)) { text-decoration-color: var(--gold); text-underline-offset: 3px; }
+  .info__body :global(.btn) { margin-top: 8px; }
+  /* FAQ questions */
+  .info__body :global(details) { border-bottom: 1px solid var(--limestone); }
+  .info__body :global(details:first-of-type) { border-top: 1px solid var(--limestone); }
+  .info__body :global(summary) {
+    cursor: pointer; list-style: none; min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    font: 400 21px/1.3 var(--serif);
+  }
+  .info__body :global(summary::-webkit-details-marker) { display: none; }
+  .info__body :global(summary::after) { content: '+'; font: 400 18px var(--sans); flex: none; }
+  .info__body :global(details[open] summary::after) { content: '–'; }
+  .info__body :global(details > :not(summary)) { margin: 0 0 20px; }
+  .info__body :global(.contact) { list-style: none; padding: 0; display: grid; gap: 12px; }
+  .info__body :global(.contact a) { display: inline-flex; align-items: center; gap: 10px; }
+</style>

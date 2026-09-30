@@ -1,0 +1,27 @@
+---
+import InfoPage from '../components/InfoPage.astro';
+import { site } from '../config';
+---
+<InfoPage title="Privacy" intro="What we collect, why, and how to ask us to delete it. Last updated September 2026."
+  description={`How ${site.name} handles your personal information: what we collect, why, who sees it, and your rights under the Philippine Data Privacy Act.`}>
+  <h2>What we collect</h2>
+  <p>Orders happen in chat, so we only see what you send us: your name, delivery address, phone number and the items you want. If you subscribe to our letters, we collect your email address. If you write to us, we keep that message.</p>
+
+  <h2>How we use it</h2>
+  <p>To confirm and deliver your order, answer your questions, and, if you subscribed, send you occasional news of arrivals and restocks. We don't sell your information.</p>
+
+  <h2>Who else sees it</h2>
+  <p>Messenger and Instagram (Meta) carry our chats, and Netlify handles the newsletter form. Couriers receive your name, address and phone number for delivery. Payment through GCash or your card is processed by those providers; we never see your card details.</p>
+
+  <h2>Cart and cookies</h2>
+  <p>Your cart is saved in your own browser so it's still there when you come back. It never leaves your device until you send us your order. Optional analytics, if we switch them on, load only after you agree. See our <a href="/cookies">cookies page</a> for the detail.</p>
+
+  <h2>How long we keep it</h2>
+  <p>Order details are kept as long as needed for delivery, returns and our records. Newsletter emails stay until you unsubscribe.</p>
+
+  <h2>Your rights</h2>
+  <p>Under the Data Privacy Act of 2012, you can ask to see, correct or delete the information we hold about you, or unsubscribe at any time. Email <a href={`mailto:${site.email}`}>{site.email}</a> and we'll respond promptly.</p>
+
+  <h2>Changes</h2>
+  <p>If we change this page, the date above will change too.</p>
+</InfoPage>

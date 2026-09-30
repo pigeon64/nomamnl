@@ -1,0 +1,101 @@
+---
+import { links, site } from '../config';
+import Icon from './Icon.astro';
+const year = new Date().getFullYear();
+---
+<footer class="footer on-forest">
+  <div class="container">
+    <a href="/" class="footer__logo" aria-label={`${site.name} — home`}>
+      <img src="/brand/logo-cream.svg" alt={site.name} width="160" height="56" loading="lazy" />
+    </a>
+
+    <div class="footer__grid">
+      <div>
+        <h2 class="label">Shop</h2>
+        <ul>
+          <li><a href="/scents">Scents</a></li>
+          <li><a href="/dinnerware">Dinnerware</a></li>
+          <li><a href="/#collections">All categories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="label">Help</h2>
+        <ul>
+          <li><a href="/how-to-order">How to order</a></li>
+          <li><a href="/shipping-returns">Shipping &amp; returns</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="label">Follow</h2>
+        <ul>
+          <li><a href={links.instagram} target="_blank" rel="noopener"><Icon name="instagram" size={18} /> Instagram</a></li>
+          <li><a href={links.facebook} target="_blank" rel="noopener"><Icon name="facebook" size={18} /> Facebook</a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        </ul>
+      </div>
+
+      <form class="newsletter" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="company" action="/thanks" novalidate>
+        <h2 class="newsletter__title">Letters from Nomà</h2>
+        <p>New arrivals, restocks and the occasional note on slow living. Rarely, never noisy.</p>
+        <input type="hidden" name="form-name" value="newsletter" />
+        <p class="sr-only" aria-hidden="true"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+        <div class="field">
+          <label for="nl-email" class="label">Email address</label>
+          <div class="newsletter__row">
+            <input id="nl-email" class="input" type="email" name="email" required autocomplete="email" aria-describedby="nl-error" />
+            <button class="btn" type="submit">Subscribe</button>
+          </div>
+          <p id="nl-error" class="field-error" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+
+    <hr class="rule" />
+    <div class="footer__base">
+      <p>© {year} {site.name}. Independent reseller, not affiliated with the brands we carry.</p>
+      <p><a href="/privacy">Privacy</a> <span aria-hidden="true">·</span> <a href="/terms">Terms</a> <span aria-hidden="true">·</span> <a href="/cookies">Cookies</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Inline validation for the newsletter form (and any form with .field inputs + a matching error element).
+  document.querySelectorAll<HTMLFormElement>('form[novalidate]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      const email = form.querySelector<HTMLInputElement>('input[type=email]');
+      const error = email && document.getElementById(email.getAttribute('aria-describedby') || '');
+      if (!email || !error) return;
+      const msg = email.validity.valueMissing ? 'Please enter your email address.'
+        : email.validity.typeMismatch ? 'That email doesn’t look quite right — please check it.' : '';
+      error.textContent = msg;
+      email.setAttribute('aria-invalid', String(!!msg));
+      if (msg) { e.preventDefault(); email.focus(); }
+    });
+  });
+</script>
+
+<style>
+  .footer { background: var(--forest); color: var(--cream); padding-block: clamp(64px, 8vw, 120px) 32px; margin-top: var(--section); }
+  .footer__logo img { width: 160px; height: auto; }
+  .footer__grid {
+    display: grid; gap: 40px; margin: 56px 0;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer h2.label { margin: 0 0 20px; font-family: var(--sans); }
+  .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .footer a { text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .footer a:hover { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+  .newsletter { grid-column: 1 / -1; }
+  .newsletter__title { font-size: 30px; margin-bottom: 8px; }
+  .newsletter p { opacity: 0.85; }
+  .newsletter__row { display: flex; gap: 16px; align-items: end; }
+  .newsletter .btn { flex: none; }
+  .footer__base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-top: 24px; font-size: 13px; opacity: 0.85; }
+  .footer__base p { margin: 0; }
+  @media (min-width: 900px) {
+    .footer__grid { grid-template-columns: 1fr 1fr 1fr 2fr; }
+    .newsletter { grid-column: auto; }
+  }
+</style>

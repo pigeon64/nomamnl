@@ -1,0 +1,36 @@
+---
+import InfoPage from '../components/InfoPage.astro';
+import { site, peso } from '../config';
+---
+<InfoPage title="Terms" intro="The simple rules for shopping with us. Last updated September 2026."
+  description={`Terms of purchase at ${site.name}: how ordering works, pricing, payment, delivery, returns and authenticity.`}>
+  <h2>Who we are</h2>
+  <p>{site.name} is an independent reseller based in Metro Manila. We are not affiliated with, endorsed by or sponsored by the brands we carry. Brand names belong to their owners.</p>
+
+  <h2>Ordering</h2>
+  <p>Orders are placed by message on Messenger or Instagram. An order is confirmed only when we reply to confirm availability, total and delivery time. Until then, nothing is reserved.</p>
+
+  <h2>Prices and availability</h2>
+  <p>Prices are in Philippine pesos. Stock changes quickly, and if a piece is no longer available we'll tell you before you pay and offer an alternative or a refund. We may correct pricing errors before confirming your order.</p>
+
+  <h2>Payment</h2>
+  <p>We accept GCash, card and cash on delivery. Payment is due as agreed in chat, before dispatch unless you choose cash on delivery.</p>
+
+  <h2>Delivery</h2>
+  <p>Delivery times and fees are set out on our <a href="/shipping-returns">shipping &amp; returns</a> page. Shipping is free on orders over {peso(site.freeShippingThreshold)}. Delivery times are estimates, not guarantees.</p>
+
+  <h2>Returns and refunds</h2>
+  <p>Unopened, unused pieces can be returned within {site.returnDays} days of delivery. Damaged or wrong items must be reported within {site.damageReportHours} hours with a photo. Full details are on our <a href="/shipping-returns">shipping &amp; returns</a> page.</p>
+
+  <h2>Authenticity</h2>
+  <p>Every piece we sell is authentic. If you have reason to doubt that, contact us and we'll make it right.</p>
+
+  <h2>Liability</h2>
+  <p>Candles and incense involve flame, so please use them as the maker directs and never leave them unattended. To the extent the law allows, our liability for any order is limited to the price you paid for it.</p>
+
+  <h2>Governing law</h2>
+  <p>These terms are governed by the laws of the Republic of the Philippines.</p>
+
+  <h2>Contact</h2>
+  <p>Questions? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</InfoPage>

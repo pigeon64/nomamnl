@@ -1,0 +1,298 @@
+---
+import { links, site, peso } from '../config';
+import { nav } from '../data/nav';
+import { findImage } from '../lib/images';
+import Icon from './Icon.astro';
+import Img from './Img.astro';
+import Search from './Search.astro';
+import Cart from './Cart.astro';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+// overlay: the page's hero photo runs up underneath the header (Home, collections).
+const { overlay = false } = Astro.props as { overlay?: boolean };
+---
+<div class="announce label">
+  <span>Same-day delivery in Metro Manila</span> <span class="announce__dot" aria-hidden="true">·</span> <span>Free shipping over {peso(site.freeShippingThreshold)}</span>
+</div>
+<header class:list={['header', 'on-forest', { 'header--overlay': overlay }]}>
+  <div class="header__inner container">
+    <div class="header__left">
+      <button class="icon-btn menu-toggle" popovertarget="menu" aria-label="Open menu">
+        <Icon name="menu" size={22} />
+      </button>
+      <Search />
+      <nav id="menu" popover aria-label="Main" data-lenis-prevent>
+        <button class="icon-btn menu-close" popovertarget="menu" popovertargetaction="hide" aria-label="Close menu">
+          <Icon name="close" size={22} />
+        </button>
+        <ul>
+          {nav.map((l) => {
+            const current = path.startsWith(l.href) ? 'page' : undefined;
+            if (!l.children?.length) return <li><a class="link" href={l.href} aria-current={current}>{l.label}</a></li>;
+            const id = `sub-${l.href.replace(/\W/g, '')}`;
+            return (
+              <li class="has-sub" data-sub>
+                {/* Desktop: the label is a link (Shop all); the small button beside it opens the panel from the keyboard.
+                    Mobile: the link is hidden and the button is the whole row, expanding the links inline. */}
+                <a class="link has-sub__link" href={l.href} aria-current={current}>{l.label}</a>
+                <button type="button" class="sub-toggle" aria-expanded="false" aria-controls={id} data-sub-toggle>
+                  <span class="sub-toggle__label link">{l.label}<span class="sr-only"> menu</span></span>
+                  <span class="sub-toggle__icon" aria-hidden="true"></span>
+                </button>
+                <div class="sub" id={id}>
+                  <div class="sub__inner container">
+                    <ul class="sub__links">
+                      {l.children.map((c) => <li><a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a></li>)}
+                    </ul>
+                    {/* Desktop only (the text list above is mobile only), so each link is reachable once. */}
+                    <ul class="sub__tiles">
+                      {l.children.map((c) => {
+                        const img = c.image && findImage(`/images/nav/${c.image}`);
+                        return (
+                          <li><a class="sub__tile" href={c.href} aria-current={path === c.href ? 'page' : undefined}>
+                            {img && <Img src={img} alt="" sizes="(min-width: 1440px) 450px, 32vw" width={1600} height={1600} />}
+                            <span class="sub__tile-text">
+                              <span class="sub__tile-label">{c.label}</span>
+                              <span class="sub__tile-cta" aria-hidden="true">Explore →</span>
+                            </span>
+                          </a></li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <div class="menu-social" aria-label="Find us">
+          <a class="icon-btn" href={links.messenger} target="_blank" rel="noopener" aria-label="Message us on Messenger"><Icon name="messenger" /></a>
+          <a class="icon-btn" href={links.instagram} target="_blank" rel="noopener" aria-label="Nomà on Instagram"><Icon name="instagram" /></a>
+          <a class="icon-btn" href={links.facebook} target="_blank" rel="noopener" aria-label="Nomà on Facebook"><Icon name="facebook" /></a>
+        </div>
+      </nav>
+    </div>
+
+    <a class="header__logo" href="/" aria-label={`${site.name} — home`}>
+      <img class="logo" src="/brand/logo-cream.svg" alt={site.name} width="138" height="48" />
+    </a>
+
+    <div class="header__right">
+      <a class="icon-btn header__social" href={links.messenger} target="_blank" rel="noopener" aria-label="Message us on Messenger"><Icon name="messenger" /></a>
+      <a class="icon-btn header__social" href={links.instagram} target="_blank" rel="noopener" aria-label="Nomà on Instagram"><Icon name="instagram" /></a>
+      <a class="icon-btn header__social" href={links.facebook} target="_blank" rel="noopener" aria-label="Nomà on Facebook"><Icon name="facebook" /></a>
+      <Cart />
+    </div>
+  </div>
+</header>
+
+<script>
+  // Submenus. Desktop (≥1024px): hover or focus opens the full-width panel; mouse leave, Escape or focus
+  // leaving closes it. Mobile drawer: only the +/− button toggles, as an accordion.
+  const desktop = matchMedia('(min-width: 1024px)');
+  for (const item of document.querySelectorAll<HTMLElement>('[data-sub]')) {
+    const button = item.querySelector<HTMLButtonElement>('[data-sub-toggle]')!;
+    let timer: number;
+    const set = (open: boolean) => {
+      item.classList.toggle('is-open', open);
+      button.setAttribute('aria-expanded', String(open));
+      // Desktop: the bar's own frost layer stretches down by the panel's height, so bar and panel are one surface.
+      const header = item.closest<HTMLElement>('.header')!;
+      if (open && desktop.matches) header.style.setProperty('--panel-h', `${item.querySelector<HTMLElement>('.sub')!.offsetHeight}px`);
+      // Shared by every submenu: a close (e.g. the one you just left) mustn't clear it while another is still open.
+      header.classList.toggle('is-menu-open', desktop.matches && !!header.querySelector('[data-sub].is-open'));
+    };
+    button.addEventListener('click', () => set(button.getAttribute('aria-expanded') !== 'true'));
+    // A short grace period so the pointer can travel from the label down to the panel.
+    item.addEventListener('pointerenter', (e) => { if (desktop.matches && e.pointerType === 'mouse') { clearTimeout(timer); set(true); } });
+    item.addEventListener('pointerleave', (e) => { if (desktop.matches && e.pointerType === 'mouse') timer = window.setTimeout(() => set(false), 150); });
+    // Open when focus arrives from outside, so Escape (which refocuses the label) doesn't reopen it.
+    item.addEventListener('focusin', (e) => { if (desktop.matches && !item.contains(e.relatedTarget as Node)) set(true); });
+    item.addEventListener('focusout', (e) => { if (desktop.matches && !item.contains(e.relatedTarget as Node)) set(false); });
+    item.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || !item.classList.contains('is-open')) return;
+      e.preventDefault(); e.stopPropagation(); // don't also close the mobile drawer
+      set(false);
+      (desktop.matches ? item.querySelector<HTMLElement>('.has-sub__link')! : button).focus();
+    });
+  }
+
+  // Past the hero photo (or a short scroll on pages without one), the bar turns deep forest.
+  const header = document.querySelector<HTMLElement>('.header')!;
+  const hero = document.querySelector<HTMLElement>('.hero');
+  let dark = false, queued = false;
+  const update = () => {
+    queued = false;
+    const next = hero
+      ? hero.getBoundingClientRect().bottom <= header.getBoundingClientRect().bottom
+      : scrollY > 80;
+    if (next === dark) return;
+    dark = next;
+    header.classList.toggle('is-scrolled', dark);
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+</script>
+
+<style>
+  .announce {
+    background: var(--forest); color: var(--cream);
+    text-align: center; padding: 10px var(--gutter);
+    font-size: 11px;
+  }
+  /* Phones: break between the two phrases, never mid-phrase */
+  .announce span { display: inline-block; }
+  @media (max-width: 599px) { .announce__dot { display: none !important; } .announce { line-height: 1.7; } }
+  .header {
+    --header-h: 64px; --t: 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    --drag: 550ms cubic-bezier(0.22, 0.61, 0.36, 1); /* how fast the bar pulls down into the submenu */
+    --fade: 56px; /* length of the soft fade-out at the bottom of the open submenu */
+    position: sticky; top: 0; z-index: 50; isolation: isolate; color: var(--cream);
+    transition: color var(--t);
+    animation: header-in 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 80ms backwards; /* fade in on load */
+  }
+  @keyframes header-in { from { opacity: 0; transform: translateY(-8px); } }
+
+  /* Two frosted layers, cross-faded: cream at rest, deep forest once past the hero.
+     Tint and blur both fade out over the bottom --f px (mask), so there's never a hard edge.
+     --f is 45% of each layer's height, as it has always been; the open submenu uses a fixed --fade instead. */
+  .header::before, .header::after {
+    content: ''; position: absolute; inset: 0 0 -28px; z-index: -1; pointer-events: none;
+    --f: calc((var(--header-h) + 28px) * 0.45);
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--f)), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - var(--f)), transparent);
+    transition: opacity var(--t), bottom var(--drag), --frost-end var(--drag);
+  }
+  .header::before {
+    background: linear-gradient(to bottom, rgb(30 61 50 / 0.72), rgb(30 61 50 / 0.5) 55%, rgb(30 61 50 / 0)); /* deep forest glass, always */
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  }
+  /* Forest: 0.94 at the top, easing to --frost-end where the fade starts, then clear. */
+  @property --frost-end { syntax: '<number>'; inherits: false; initial-value: 0.82; }
+  .header::after {
+    background: linear-gradient(to bottom, rgb(22 46 37 / 0.94), rgb(30 61 50 / var(--frost-end)) calc(100% - var(--f)), rgb(30 61 50 / 0));
+    -webkit-backdrop-filter: blur(20px) saturate(1.2); backdrop-filter: blur(20px) saturate(1.2);
+    opacity: 0;
+  }
+  .header.is-scrolled { color: var(--cream); }
+  .header.is-scrolled::before { opacity: 0; }
+  .header.is-scrolled::after { opacity: 1; bottom: -56px; --f: calc((var(--header-h) + 56px) * 0.45); } /* deeper forest once past the hero */
+  /* Submenu open (desktop): the forest layer is dragged down past the panel. Its opacity is one long gradient from the
+     top of the page (0.94) to the end of the submenu (0.66, 20% lighter than the bar's usual 0.82), then the soft fade. */
+  .header.is-menu-open { --t: 300ms cubic-bezier(0.22, 0.61, 0.36, 1); color: var(--cream); }
+  .header.is-menu-open::before { opacity: 0; }
+  .header.is-menu-open::after { opacity: 1; bottom: calc(-1 * (var(--panel-h, 0px) + var(--fade))); --f: var(--fade); --frost-end: 0.66; }
+  .is-menu-open :focus-visible { outline-color: var(--cream); }
+
+  .header__logo { position: relative; display: block; transition: transform 300ms var(--ease); }
+  .header__logo:hover { transform: scale(1.1); }
+  .header--overlay { margin-bottom: calc(var(--header-h) * -1); }
+  .header__inner {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    min-height: var(--header-h);
+  }
+  .header__logo img { height: 32px; width: auto; }
+  .header__left { display: flex; align-items: center; }
+  .header__right { display: flex; justify-content: flex-end; gap: 4px; }
+
+  :global(.icon-btn) {
+    display: inline-grid; place-items: center; width: 44px; height: 44px;
+    background: none; border: 0; padding: 0; cursor: pointer; color: inherit;
+    transition: color 400ms var(--ease), transform 300ms var(--ease);
+  }
+  :global(.icon-btn:hover) { color: color-mix(in srgb, var(--forest) 80%, white); transform: scale(1.2); }
+  :global(.header .icon-btn:hover) { color: var(--gold); } /* dark bar */
+  .menu-toggle { margin-left: -12px; }
+  /* Phones: the bar keeps menu, search, logo and cart; Messenger, Instagram and Facebook move into the drawer */
+  @media (max-width: 599px) { .header__social { display: none; } }
+  .menu-social { display: flex; gap: 4px; margin: 40px 0 0 -12px; }
+
+  /* Mobile: menu is a native popover drawer */
+  #menu {
+    margin: 0; inset: 0 auto 0 0; width: min(86vw, 360px); height: 100dvh; max-height: none;
+    border: 0; padding: 16px var(--gutter) 48px; background: var(--cream); color: var(--forest);
+  }
+  #menu::backdrop { background: rgb(30 61 50 / 0.35); }
+  #menu ul { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 28px; }
+  #menu .link { font-size: 14px; }
+  .menu-close { margin-left: -12px; }
+
+  /* Mobile accordion: the whole row is the button, links expand inline */
+  .has-sub__link { display: none; }
+  .sub-toggle {
+    display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; margin-block: -12px;
+    background: none; border: 0; padding: 0; cursor: pointer; color: inherit; text-align: left;
+  }
+  .sub-toggle__label { padding-bottom: 0; background: none; }
+  .sub-toggle__icon::before { content: '+'; font-size: 18px; line-height: 1; }
+  .sub-toggle[aria-expanded='true'] .sub-toggle__icon::before { content: '–'; }
+  .sub { display: none; }
+  .is-open > .sub { display: block; }
+  #menu .sub__links { margin: 8px 0 -8px; padding-left: 16px; gap: 0; border-left: 1px solid var(--limestone); }
+  .sub__links a { display: flex; align-items: center; min-height: 44px; font: 400 22px/1.2 var(--serif); text-decoration: none; }
+  .sub__links a:hover, .sub__links [aria-current] { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 5px; }
+  #menu .sub__tiles { display: none; }
+
+  @media (min-width: 1024px) {
+    .header { --header-h: 88px; }
+    .header__logo img { height: 44px; }
+    .menu-toggle, .menu-close, .menu-social { display: none; }
+    /* Desktop: same element, shown inline. Author styles beat the UA popover display:none. */
+    #menu { display: block; position: static; width: auto; height: auto; padding: 0; background: none; overflow: visible; color: inherit; }
+    #menu > ul > li { display: flex; align-items: center; min-height: 44px; }
+    #menu ul { display: flex; align-items: center; gap: 32px; margin: 0; } /* centres plain links (About) with the submenu ones */
+    #menu .link { font-size: 12px; }
+    /* Desktop only: on the mobile drawer .has-sub__link must stay display:none, and these would override it */
+    #menu .link { display: inline-block; padding-block: 2px; transition: transform 300ms var(--ease), background-size var(--slow) var(--ease); }
+    #menu .link:hover { transform: scale(1.1); }
+    #menu > ul > li > [aria-current='page'] { background-size: 100% 1px; }
+
+    /* Desktop panel: full width under the header. It has no background of its own: the bar's frost stretches behind it. */
+    .has-sub { display: flex; align-items: center; gap: 2px; }
+    .has-sub__link { display: inline; }
+    .sub-toggle { width: 24px; height: 44px; min-height: 0; margin: 0 -8px 0 0; justify-content: center; }
+    .sub-toggle__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .sub-toggle__icon::before { font-size: 14px; }
+    .sub {
+      display: block; position: absolute; left: 0; right: 0; top: 100%;
+      color: var(--cream);
+      /* Revealed by the bar's moving bottom edge: a mask with the same soft --fade edge grows down in step with the drag. */
+      -webkit-mask: linear-gradient(to bottom, #000 calc(100% - var(--fade)), transparent) 0 0 / 100% 0 no-repeat;
+      mask: linear-gradient(to bottom, #000 calc(100% - var(--fade)), transparent) 0 0 / 100% 0 no-repeat;
+      opacity: 0; visibility: hidden;
+      transition: -webkit-mask-size var(--drag), mask-size var(--drag), opacity 200ms var(--ease), visibility 0s linear 550ms;
+    }
+    .is-open > .sub {
+      -webkit-mask-size: 100% calc(100% + var(--fade)); mask-size: 100% calc(100% + var(--fade)); opacity: 1; visibility: visible;
+      transition: -webkit-mask-size var(--drag), mask-size var(--drag), opacity 200ms var(--ease), visibility 0s;
+    }
+    .sub__inner { display: flex; justify-content: center; padding-block: 40px; }
+    #menu .sub__links { display: none; }
+    #menu .sub__tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 0; width: 100%; }
+    /* Squares grow into place as the panel opens, a beat apart */
+    .sub__tiles > li { transform: scale(0.86); transition: transform 650ms var(--ease-out); }
+    .is-open .sub__tiles > li { transform: none; }
+    .is-open .sub__tiles > li:nth-child(2) { transition-delay: 60ms; }
+    .is-open .sub__tiles > li:nth-child(3) { transition-delay: 120ms; }
+
+    /* Landscape photo tiles spanning the page width: soft dark gradient at the bottom, cream label, gold underline grows on hover/focus */
+    .sub__tile { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--limestone); color: var(--cream); text-decoration: none; }
+    .sub__tile :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 500ms var(--ease); }
+    .sub__tile::after { content: ''; position: absolute; inset: 40% 0 0; background: linear-gradient(to top, rgb(20 34 28 / 0.7), rgb(20 34 28 / 0)); pointer-events: none; }
+    .sub__tile-text { position: absolute; left: 20px; bottom: 20px; right: 20px; z-index: 1; display: grid; gap: 8px; justify-items: start; }
+    .sub__tile-label {
+      font: 400 30px/1.1 var(--serif); padding-bottom: 4px;
+      background: linear-gradient(var(--gold), var(--gold)) 0 100% / 0 1px no-repeat; transition: background-size 500ms var(--ease);
+    }
+    .sub__tile-cta { font: 400 12px/1 var(--sans); text-transform: uppercase; letter-spacing: 0.15em; }
+    .sub__tile { transition: transform 400ms var(--ease-out); }
+    .sub__tile:hover, .sub__tile:focus-visible { transform: scale(1.05); z-index: 1; }
+    .sub__tile:hover :global(img), .sub__tile:focus-visible :global(img) { transform: scale(1.03); }
+    .sub__tile:hover .sub__tile-label, .sub__tile:focus-visible .sub__tile-label, .sub__tile[aria-current] .sub__tile-label { background-size: 100% 1px; }
+    .sub__tile:focus-visible { outline-color: var(--cream); outline-offset: 3px; }
+  }
+  /* Reduced motion: keep the panel's fade (the global rule turns every transition off), no zoom. */
+  @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+    .sub, .is-open > .sub { transition: opacity 200ms linear, visibility 0s !important; }
+    .sub__tile :global(img), .sub__tiles > li { transform: none !important; }
+  }
+</style>

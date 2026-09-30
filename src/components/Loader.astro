@@ -1,0 +1,55 @@
+---
+// Loading screen: the Nomà candle (the "o" from the logo) on cream, flame lighting then flickering.
+// Shown on the first page of a visit only (see the head script in Base.astro); later pages load without it.
+// The candle is read from public/favicon.svg, so it always matches the brand mark.
+import { readFileSync } from 'node:fs';
+const svg = readFileSync('public/favicon.svg', 'utf8');
+const mark = svg
+  .slice(svg.indexOf('<clipPath'), svg.lastIndexOf('</g>') + 4)
+  .replace('id="o"', 'id="loader-o"').replace('url(#o)', 'url(#loader-o)')
+  .replace('<path fill="#B99A5B"', '<path class="loader__flame" fill="#B99A5B"');
+---
+<div class="loader" aria-hidden="true">
+  <svg class="loader__mark" viewBox="470 75 265 515" set:html={mark} />
+</div>
+
+<script is:inline>
+  // Fade out once the page has loaded, but not before 2.5s after navigation starts.
+  // Never longer than 4s, even if a photo is slow.
+  (function () {
+    var el = document.querySelector('.loader');
+    if (!el || document.documentElement.classList.contains('no-loader')) return;
+    var hide = function () { el.classList.add('is-done'); setTimeout(function () { el.remove(); }, 800); };
+    var done = function () { setTimeout(hide, Math.max(0, 2500 - performance.now())); };
+    if (document.readyState === 'complete') done(); else addEventListener('load', done, { once: true });
+    setTimeout(hide, 4000);
+  })();
+</script>
+
+<style>
+  .loader {
+    position: fixed; inset: 0; z-index: 200; display: none; place-items: center;
+    background: var(--cream); transition: opacity 700ms var(--ease-out), visibility 0s linear 700ms;
+  }
+  /* Only with JS (so it can always be dismissed), and not on later pages of the visit */
+  :global(.js:not(.no-loader)) .loader { display: grid; }
+  .loader.is-done { opacity: 0; visibility: hidden; }
+
+  .loader__mark { width: 56px; height: auto; overflow: visible; animation: candle-in 900ms var(--ease-out) both; }
+  @media (min-width: 768px) { .loader__mark { width: 72px; } }
+  @keyframes candle-in { from { opacity: 0; transform: translateY(8px); } }
+
+  /* The flame lights from the wick, then flickers with a soft gold glow */
+  .loader__mark :global(.loader__flame) {
+    transform-box: fill-box; transform-origin: 50% 100%;
+    animation: light 700ms var(--ease-out) 350ms both, flicker 1.8s ease-in-out 1050ms infinite;
+    filter: drop-shadow(0 0 10px rgb(185 154 91 / 0.55));
+  }
+  @keyframes light { from { transform: scale(0.1, 0); opacity: 0; } }
+  @keyframes flicker {
+    0%, 100% { transform: scale(1, 1) skewX(0deg); opacity: 1; }
+    20% { transform: scale(0.96, 1.06) skewX(-2deg); opacity: 0.92; }
+    45% { transform: scale(1.03, 0.95) skewX(1.5deg); opacity: 1; }
+    70% { transform: scale(0.98, 1.08) skewX(-1deg); opacity: 0.88; }
+  }
+</style>

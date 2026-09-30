@@ -1,0 +1,29 @@
+---
+// Responsive image for anything in public/images/. Variants are made by scripts/images.mjs.
+import type { HTMLAttributes } from 'astro/types';
+const WIDTHS = [400, 800, 1200, 1600];
+
+interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'srcset'> {
+  src: string; // e.g. /images/products/<slug>/1.webp
+  alt: string;
+  sizes?: string;
+  width?: number; // intrinsic ratio, for layout stability
+  height?: number;
+  priority?: boolean; // above-the-fold images: load eagerly, high priority
+}
+const { src, alt, sizes = '100vw', width = 1600, height = 2000, priority = false, ...rest } = Astro.props;
+const base = src.replace(/^\/images\//, '/_img/').replace(/\.\w+$/, '');
+const srcset = WIDTHS.map((w) => `${base}-${w}.webp ${w}w`).join(', ');
+---
+<img
+  src={`${base}-800.webp`}
+  srcset={srcset}
+  sizes={sizes}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority ? 'high' : undefined}
+  decoding="async"
+  {...rest}
+/>

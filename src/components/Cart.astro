@@ -1,0 +1,213 @@
+---
+// Cart: a bag in the header and a drawer. There's no online checkout: "Order" sends one Messenger message listing
+// everything (Instagram: the message is copied to paste). The cart lives in this browser's localStorage.
+// Products are added from the product page: any [data-add-to-cart] button carrying the product in data-item (JSON).
+import Icon from './Icon.astro';
+import { links, site } from '../config';
+---
+<button type="button" class="icon-btn cart-toggle" aria-haspopup="dialog" aria-label="Cart" data-cart-open>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7.5h14l-.9 12.6a1 1 0 0 1-1 .9H6.9a1 1 0 0 1-1-.9L5 7.5Z"/><path d="M8.5 10V6.5a3.5 3.5 0 0 1 7 0V10"/></svg>
+  <span class="cart-count" data-cart-count hidden></span>
+</button>
+
+<dialog class="cart" aria-label="Your cart" data-cart data-lenis-prevent data-messenger={links.messenger} data-instagram={links.instagramDm}
+  data-free={site.freeShippingThreshold} data-shop={site.name}>
+  <div class="cart__head">
+    <h2 class="cart__title">Your cart <span class="cart__count" data-cart-title-count></span></h2>
+    <button type="button" class="cart__close" aria-label="Close cart" data-cart-close><Icon name="close" size={20} /></button>
+  </div>
+  <ul class="cart__items" data-cart-items></ul>
+  <div class="cart__empty" data-cart-empty>
+    <svg class="cart__empty-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h3l2.4 12.2a1.5 1.5 0 0 0 1.5 1.2h8.7a1.5 1.5 0 0 0 1.5-1.1L21 7.5H6"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg>
+    <p>Your cart is empty.</p>
+    <a class="link" href="/#collections" data-cart-close>Shop the collections</a>
+  </div>
+  <div class="cart__foot" data-cart-foot>
+    <div class="cart__free">
+      <p class="label" data-cart-free></p>
+      <div class="cart__bar" data-cart-bar aria-hidden="true"></div>
+    </div>
+    <p class="cart__total"><span>Subtotal</span><span data-cart-total></span></p>
+    <p class="cart__note">We'll confirm availability and delivery in chat before you pay.</p>
+    <a class="btn btn--block" href="#" target="_blank" rel="noopener" data-cart-messenger><Icon name="messenger" size={18} /> Order on Messenger</a>
+    <a class="link cart__ig" href="#" target="_blank" rel="noopener" data-cart-instagram><Icon name="instagram" size={16} /> Order on Instagram</a>
+    <p class="cart__copied" role="status" aria-live="polite" data-cart-copied></p>
+  </div>
+</dialog>
+
+<script>
+  type Item = { key: string; slug: string; name: string; brand: string; size: string; variant?: string; price: number; status: string; img: string; qty: number };
+  const KEY = 'noma-cart';
+  const dialog = document.querySelector<HTMLDialogElement>('[data-cart]')!;
+  const $ = <T extends Element>(s: string) => dialog.querySelector<T>(s)!;
+  const peso = (n: number) => `₱${n.toLocaleString('en-PH')}`;
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => `&${({ '&': 'amp', '<': 'lt', '>': 'gt', '"': 'quot' })[c]};`);
+  const label = (i: Item) => [i.brand, i.name, i.size].filter(Boolean).join(' ') + (i.variant ? ` in ${i.variant}` : '');
+
+  // Storage can be unavailable (private mode, blocked site data): fall back to a cart that lasts this page view.
+  let items: Item[] = [];
+  try { items = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch {} render(); };
+
+  function message() {
+    const lines = items.map((i) => `• ${label(i)} × ${i.qty}${i.price ? ` – ${peso(i.price * i.qty)}` : ' – price on request'}${i.status === 'pre_order' ? ' (pre-order)' : ''}`);
+    const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+    const unpriced = items.some((i) => !i.price);
+    return `Hi ${dialog.dataset.shop}! I'd like to order:\n${lines.join('\n')}\n\nSubtotal: ${peso(total)}${unpriced ? ' + items on request' : ''}`;
+  }
+
+  function render() {
+    const count = items.reduce((s, i) => s + i.qty, 0);
+    const badge = document.querySelector<HTMLElement>('[data-cart-count]')!;
+    badge.hidden = !count;
+    badge.textContent = String(count);
+    $<HTMLElement>('[data-cart-empty]').hidden = !!count;
+    $<HTMLElement>('[data-cart-foot]').hidden = !count;
+    $<HTMLElement>('[data-cart-title-count]').textContent = count ? `(${count})` : '';
+    $<HTMLElement>('[data-cart-items]').innerHTML = items.map((i, n) => `<li class="cart-item">
+      <a class="cart-item__img" href="/products/${i.slug}" tabindex="-1">${i.img ? `<img src="${i.img}" alt="" width="400" height="500" loading="lazy">` : ''}</a>
+      <div class="cart-item__text">
+        <div class="cart-item__top">
+          <div>
+            <span class="cart-item__brand label">${esc(i.brand)}</span>
+            <a class="cart-item__name" href="/products/${i.slug}">${esc(i.name)}</a>
+            <span class="cart-item__meta">${[i.size, i.variant].filter(Boolean).map((x) => esc(x!)).join(' · ')}${i.status === 'pre_order' ? ' <em>Pre-order</em>' : ''}</span>
+          </div>
+          <span class="cart-item__price">${i.price ? peso(i.price * i.qty) : 'On request'}</span>
+        </div>
+        <div class="cart-item__qty">
+          <div class="cart-item__stepper">
+            <button type="button" data-qty="${n}" data-d="-1" aria-label="One fewer ${esc(label(i))}">−</button>
+            <span aria-label="Quantity">${i.qty}</span>
+            <button type="button" data-qty="${n}" data-d="1" aria-label="One more ${esc(label(i))}">+</button>
+          </div>
+          <button type="button" class="cart-item__remove" data-remove="${n}">Remove</button>
+        </div>
+      </div>
+    </li>`).join('');
+    const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+    $<HTMLElement>('[data-cart-total]').textContent = peso(total);
+    const free = +dialog.dataset.free!, left = free - total;
+    $<HTMLElement>('[data-cart-free]').textContent = left > 0 ? `${peso(left)} away from free shipping` : 'Your order ships free';
+    $<HTMLElement>('[data-cart-bar]').style.setProperty('--p', String(Math.min(1, total / free)));
+    const text = message();
+    $<HTMLAnchorElement>('[data-cart-messenger]').href = `${dialog.dataset.messenger}?text=${encodeURIComponent(text)}`;
+    $<HTMLAnchorElement>('[data-cart-instagram]').href = dialog.dataset.instagram!;
+  }
+
+  // Add from the product page. The scent picker's current choice, if any, is part of the line.
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest<HTMLElement>('[data-add-to-cart]');
+    if (!btn) return;
+    const p = JSON.parse(btn.dataset.item!);
+    const variant = document.querySelector<HTMLInputElement>('[data-variant]:checked')?.parentElement?.textContent?.trim() || undefined;
+    const key = `${p.slug}|${variant ?? ''}`;
+    const found = items.find((i) => i.key === key);
+    if (found) found.qty++;
+    else items.push({ ...p, key, variant, qty: 1 });
+    save();
+    dialog.showModal();
+  });
+
+  // Closing: the drawer slides back out and fades while the backdrop dims, then the dialog really closes (the reverse of cart-in).
+  let closing = false;
+  const close = () => {
+    if (!dialog.open || closing) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return dialog.close();
+    closing = true;
+    const opt = { duration: 300, easing: 'cubic-bezier(0.4, 0, 0.6, 1)', fill: 'forwards' as const };
+    dialog.animate({ transform: ['none', 'translateX(40px)'], opacity: [1, 0] }, opt);
+    dialog.animate({ opacity: [1, 0] }, { ...opt, pseudoElement: '::backdrop' }).finished.then(() => {
+      dialog.close();
+      dialog.getAnimations({ subtree: true }).forEach((an) => an.cancel());
+      closing = false;
+    });
+  };
+  dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); }); // Escape
+
+  dialog.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    if (t === dialog || t.closest('[data-cart-close]')) return close();
+    const q = t.closest<HTMLElement>('[data-qty]');
+    if (q) { const i = items[+q.dataset.qty!]; i.qty += +q.dataset.d!; if (i.qty < 1) items.splice(+q.dataset.qty!, 1); return save(); }
+    const r = t.closest<HTMLElement>('[data-remove]');
+    if (r) { items.splice(+r.dataset.remove!, 1); return save(); }
+    // Instagram can't prefill a message: copy it, then let the link open the chat.
+    if (t.closest('[data-cart-instagram]')) {
+      navigator.clipboard?.writeText(message()).catch(() => {});
+      $<HTMLElement>('[data-cart-copied]').textContent = 'Message copied — paste it in the chat';
+    }
+  });
+
+  document.querySelector('[data-cart-open]')!.addEventListener('click', () => dialog.showModal());
+  // Another tab changed the cart: pick it up.
+  addEventListener('storage', (e) => { if (e.key === KEY) { try { items = JSON.parse(e.newValue || '[]'); } catch {} render(); } });
+  render();
+</script>
+
+<style>
+  .cart-toggle { position: relative; }
+  .cart-count {
+    position: absolute; top: 7px; right: 3px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px;
+    background: var(--forest); color: var(--cream); box-shadow: 0 0 0 2px var(--cream);
+    font: 500 9px/16px var(--sans); text-align: center;
+  }
+
+  /* A cream panel sliding in from the right */
+  .cart {
+    margin: 0 0 0 auto; inset: 0 0 0 auto; width: min(100vw, 460px); height: 100dvh; max-height: none;
+    border: 0; padding: 0; background: var(--cream); color: var(--forest); display: none; flex-direction: column;
+    box-shadow: -24px 0 60px rgb(30 61 50 / 0.12);
+  }
+  .cart[open] { display: flex; animation: cart-in 450ms var(--ease-out); }
+  @keyframes cart-in { from { transform: translateX(40px); opacity: 0; } }
+  .cart::backdrop { background: rgb(30 61 50 / 0.35); backdrop-filter: blur(2px); }
+  .cart__head { display: flex; align-items: center; justify-content: space-between; padding: 24px 28px 20px; border-bottom: 1px solid var(--limestone); }
+  .cart__title { font: 400 30px/1 var(--serif); margin: 0; }
+  .cart__count { font: 400 14px/1 var(--sans); letter-spacing: 0.05em; opacity: 0.6; vertical-align: middle; }
+  .cart__close { display: grid; place-items: center; width: 44px; height: 44px; margin-right: -12px; background: none; border: 0; border-radius: 50%; cursor: pointer; color: inherit; transition: background var(--slow) var(--ease); }
+  .cart__close:hover { background: var(--limestone); }
+  .cart__items { list-style: none; margin: 0; padding: 0 28px; overflow-y: auto; flex: 1; }
+  .cart__empty { padding: 64px 28px 152px; /* extra bottom padding cancels the header height above, so it sits at the drawer's true centre */ text-align: center; flex: 1; font: 400 22px/1.3 var(--serif); display: flex; flex-direction: column; align-items: center; justify-content: center; } /* centred both ways in the drawer */
+  .cart__empty-icon { display: block; margin: 0 auto 20px; opacity: 0.55; }
+  .cart__empty p { margin: 0 auto 12px; }
+  .cart__empty a { font: 400 14px/1.6 var(--sans); }
+  .cart__empty[hidden], .cart__foot[hidden], .cart__items:empty { display: none; } /* an empty list must not share the free space with the empty message */
+  .cart__foot { padding: 24px 28px calc(24px + env(safe-area-inset-bottom)); background: var(--limestone); display: grid; gap: 14px; }
+  .cart__free p { margin: 0 0 8px; font-size: 11px; }
+  .cart__bar { height: 2px; background: rgb(30 61 50 / 0.12); position: relative; overflow: hidden; }
+  .cart__bar::after { content: ''; position: absolute; inset: 0; background: var(--forest); transform-origin: left; transform: scaleX(var(--p, 0)); transition: transform var(--slow) var(--ease-out); }
+  .cart__total { display: flex; justify-content: space-between; align-items: baseline; margin: 4px 0 0; font: 400 24px/1.2 var(--serif); }
+  .cart__total span:first-child { font: 400 12px/1 var(--sans); text-transform: uppercase; letter-spacing: 0.15em; }
+  .cart__note { margin: 0; font-size: 13px; opacity: 0.75; }
+  .cart__ig { justify-self: center; display: inline-flex; align-items: center; gap: 8px; }
+  .cart__copied { margin: 0; text-align: center; font-size: 13px; }
+  .cart__copied:empty { display: none; }
+
+  /* Lines are built by the script: style them via :global inside the list */
+  .cart__items :global(.cart-item) { display: grid; grid-template-columns: 88px 1fr; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--limestone); }
+  .cart__items :global(.cart-item:last-child) { border-bottom: 0; }
+  .cart__items :global(.cart-item__img) { aspect-ratio: 4 / 5; background: var(--limestone); overflow: hidden; }
+  .cart__items :global(.cart-item__img img) { width: 100%; height: 100%; object-fit: cover; }
+  .cart__items :global(.cart-item__text) { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; min-width: 0; }
+  .cart__items :global(.cart-item__top) { display: flex; justify-content: space-between; gap: 16px; }
+  .cart__items :global(.cart-item__top > div) { display: grid; gap: 3px; min-width: 0; }
+  .cart__items :global(.cart-item__brand) { font-size: 10px; opacity: 0.7; }
+  .cart__items :global(.cart-item__name) { font: 400 20px/1.2 var(--serif); text-decoration: none; }
+  .cart__items :global(.cart-item__name:hover) { text-decoration: underline; text-underline-offset: 3px; }
+  .cart__items :global(.cart-item__meta) { font-size: 13px; opacity: 0.75; }
+  .cart__items :global(.cart-item__meta em) { font-style: normal; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; padding: 2px 6px; margin-left: 4px; border: 1px solid currentColor; }
+  .cart__items :global(.cart-item__price) { font-size: 14px; white-space: nowrap; }
+  .cart__items :global(.cart-item__qty) { display: flex; align-items: center; justify-content: space-between; }
+  .cart__items :global(.cart-item__stepper) { display: inline-flex; align-items: center; border: 1px solid rgb(30 61 50 / 0.25); border-radius: 999px; }
+  .cart__items :global(.cart-item__stepper button) {
+    width: 34px; height: 34px; border: 0; border-radius: 50%; background: none; cursor: pointer; color: inherit; font-size: 16px; line-height: 1;
+  }
+  .cart__items :global(.cart-item__stepper button:hover) { background: var(--limestone); }
+  .cart__items :global(.cart-item__stepper span) { min-width: 22px; text-align: center; font-size: 14px; }
+  .cart__items :global(.cart-item__remove) {
+    background: none; border: 0; cursor: pointer; padding: 4px 0; font-size: 12px; opacity: 0.65;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .cart__items :global(.cart-item__remove:hover) { opacity: 1; }
+</style>

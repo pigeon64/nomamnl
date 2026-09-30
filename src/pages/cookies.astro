@@ -1,0 +1,26 @@
+---
+import InfoPage from '../components/InfoPage.astro';
+import { site } from '../config';
+---
+<InfoPage title="Cookies" intro="What this site stores on your device, and what it doesn't. Last updated September 2026."
+  description={`How ${site.name} uses cookies and browser storage: what is saved on your device, why, and how to clear it.`}>
+  <h2>The short version</h2>
+  <p>We don't use advertising or tracking cookies, and we don't currently run analytics. The site saves two small things in your browser so it works properly, and nothing else.</p>
+
+  <h2>What we store</h2>
+  <p><strong>Your cart.</strong> The pieces you add are kept in your browser's local storage so they're still there when you come back. This stays on your device and is only shared when you send us your order in chat.</p>
+  <p><strong>A "seen the intro" flag.</strong> So the opening screen shows only on the first page of a visit, we note that in your browser's session storage. It's cleared when you close the tab.</p>
+  <p>Neither of these is used to identify you or follow you around the web.</p>
+
+  <h2>Third parties</h2>
+  <p>When you tap Messenger or Instagram to order, you leave our site and those services (Meta) apply their own cookies and privacy terms. Our newsletter form is handled by Netlify. Please read their policies if you want to know more.</p>
+
+  <h2>If we add analytics</h2>
+  <p>If we ever switch on analytics such as Google Analytics or the Meta Pixel, we'll ask for your consent first, only load them after you agree, and update this page.</p>
+
+  <h2>Clearing it</h2>
+  <p>You can delete your cart and any saved site data at any time from your browser's settings (look for "clear site data" or "cookies and site data"). Clearing it empties your cart.</p>
+
+  <h2>Questions</h2>
+  <p>Email <a href={`mailto:${site.email}`}>{site.email}</a>. See also our <a href="/privacy">privacy policy</a>.</p>
+</InfoPage>

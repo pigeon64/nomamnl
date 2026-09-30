@@ -1,0 +1,119 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import CategorySquares from '../components/CategorySquares.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { existsSync } from 'node:fs';
+import { products } from '../lib/products';
+import { site, peso } from '../config';
+const featured = products.filter((p) => p.featured).slice(0, 4);
+// Optional hero video: drop public/images/site/hero.mp4 in and it plays over the hero photo (muted, looping).
+// The photo stays as the poster while the video loads, and is all that shows for visitors who prefer reduced motion.
+const heroVideo = existsSync('public/images/site/hero.mp4') ? '/images/site/hero.mp4' : undefined;
+---
+<Base overlayHeader>
+  <section class="hero on-forest">
+    <Img class="hero__img" src="/images/site/hero.webp" alt="Tapered and votive candles glowing along a linen runner on a dark dinner table, with red wine and dried flowers" width={2400} height={1350} sizes="100vw" priority />
+    {heroVideo && (
+      <video class="hero__img hero__video" src={heroVideo} poster="/_img/site/hero-1600.webp"
+        autoplay muted loop playsinline preload="auto" aria-hidden="true" disablepictureinpicture></video>
+    )}
+    <div class="hero__text container">
+      <h1>Elevated home living.</h1>
+      <a class="btn btn--outline" href="/#collections">Discover</a>
+    </div>
+  </section>
+
+  <div class="olive-bg">
+  <section class="container section" id="collections" aria-labelledby="cat-title">
+    <h2 id="cat-title" class="label section-label">The collections</h2>
+    <CategorySquares />
+  </section>
+
+  <section class="container edit" aria-labelledby="edit-title">
+    <div class="edit__head">
+      <h2 id="edit-title">The Edit — this month</h2>
+      <a class="link" href="/#collections">Shop all</a>
+    </div>
+    <ul class="edit__grid">
+      {featured.map((p) => <li class="reveal"><ProductCard product={p} /></li>)}
+    </ul>
+  </section>
+
+  </div>
+
+  <div class="tone-sage">
+  <section class="story section">
+    <div class="story__media zoom">
+      <Img src="/images/site/story.webp" alt="Incense burning beside a green box on a stone table" sizes="(min-width: 768px) 50vw, 100vw" />
+    </div>
+    <div class="story__text reveal">
+      <p class="label">Nomà</p>
+      <h2>Chosen slowly, delivered by hand.</h2>
+      <p>We gather candles, scents and tableware from the houses we love most.</p>
+      <p>Every piece is authentic, and every order leaves our hands wrapped with care.</p>
+      <p>Made for long lunches, late baths and tables set for no particular reason.</p>
+      <a class="link" href="/about">Our story</a>
+    </div>
+  </section>
+
+  </div>
+
+  <section class="gifting">
+    <div class="container gifting__inner reveal">
+      <h2>Gifts, wrapped by hand.</h2>
+      <p>Gift wrap and a handwritten note, {peso(site.giftWrapPrice)}. Just mention it when you order.</p>
+      <a class="btn" href="/#collections">Shop gifts</a>
+    </div>
+  </section>
+
+  <section class="container" aria-label="Why Nomà">
+    <ul class="trust label">
+      <li>Authentic, guaranteed</li>
+      <li>Same-day Metro Manila</li>
+      <li>GCash, card or COD</li>
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .hero { position: relative; min-height: min(86svh, 820px); display: grid; align-items: center; overflow: hidden; background: var(--forest); }
+  .hero :global(.hero__img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; }
+  .hero__video { object-fit: cover; }
+  @media (prefers-reduced-motion: reduce) { .hero__video { display: none; } }
+  .hero__text { position: relative; padding-block: 64px; }
+  .hero h1 { max-width: 9em; margin-bottom: 32px; color: var(--cream); }
+  @media (max-width: 767px) {
+    .hero { align-items: start; }
+    .hero__text { padding-top: 48px; }
+  }
+
+  .section-label { margin: 0 0 24px; }
+  :global(.olive-bg) { padding-bottom: var(--section); } /* the Edit no longer runs straight into the story, which now has its own tone */
+
+  .edit__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+  .edit__head h2 { margin: 0; }
+  .edit__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 32px 16px; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 900px) { .edit__grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+
+  .story { display: grid; align-items: center; gap: 40px; max-width: var(--max); margin-inline: auto; }
+  .story__media { aspect-ratio: 4 / 5; background: var(--limestone); }
+  .story__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .story__text { padding-inline: var(--gutter); }
+  .story__text p:not(.label) { margin-bottom: 0.6em; }
+  .story__text .link { display: inline-block; margin-top: 24px; }
+  @media (min-width: 768px) {
+    .story { grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 120px); padding-inline: var(--gutter); }
+    .story__text { padding-inline: 0; max-width: 480px; }
+  }
+
+  .gifting { background: var(--limestone); padding-block: clamp(80px, 10vw, 140px); text-align: center; }
+  .gifting__inner { display: grid; justify-items: center; }
+  .gifting p { margin-bottom: 32px; }
+
+  .trust { list-style: none; margin: 0; padding: 40px 0 0; display: grid; gap: 16px; text-align: center; }
+  @media (min-width: 768px) {
+    .trust { grid-template-columns: repeat(3, 1fr); padding-top: 64px; }
+    .trust li + li { border-left: 1px solid var(--gold); }
+  }
+</style>

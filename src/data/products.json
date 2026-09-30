@@ -1,0 +1,1493 @@
+[
+  {
+    "slug": "diptyque-scented-candle-190g",
+    "name": "Scented Candle",
+    "brand": "Diptyque",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "190g",
+    "burnTime": "Approx. 60 hours",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Diptyque's classic candle, in the oval-labelled glass the Paris house has poured since 1963. Choose your scent below; each one fills a room in about twenty minutes.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/diptyque-scented-candle-190g/1.webp",
+      "/images/products/diptyque-scented-candle-190g/2.webp",
+      "/images/products/diptyque-scented-candle-190g/3.webp"
+    ],
+    "featured": true,
+    "variants": [
+      {
+        "name": "Baies",
+        "notes": {
+          "top": "Blackcurrant leaves",
+          "heart": "Bulgarian rose",
+          "base": ""
+        },
+        "details": "Diptyque's best-seller, from the house's herbarium of fruits. A basket of blackcurrants picked that morning, some still on their stems and leaves, cool and tangy, with a few hand-cut roses tucked among them. Bright, green and juicy rather than sweet: a scent that makes a room feel freshly aired."
+      },
+      {
+        "name": "Figuier",
+        "notes": {
+          "top": "Fig leaf",
+          "heart": "Green fig",
+          "base": "Fig wood"
+        },
+        "details": "Not just the fig but the whole tree: an orchard running along a Mediterranean shore, with the summer sun at its height and a warm wind moving through the branches. Green leaves and milky sap meet warm bark and figs just short of ripe. Verdant and sophisticated, never sugary."
+      },
+      {
+        "name": "Roses",
+        "notes": {
+          "top": "",
+          "heart": "Bulgarian rose",
+          "base": ""
+        },
+        "details": "Rose bushes in May, caught over the course of a morning. At first the petals are still cool from the night and the scent is fresh and dewy; as the sun comes up it opens into a full, bright bloom. Diptyque's most restrained candle, and a pure homage to the flower."
+      },
+      {
+        "name": "Feu de Bois",
+        "notes": {
+          "top": "Juniper",
+          "heart": "Birch",
+          "base": "Cade"
+        },
+        "details": "One of the scents the founders made in 1963. Logs slowly giving way in a winter hearth, the fire roaring and throwing shadows on the walls: dense, resinous and smoky, warm rather than sharp. Made for cold nights, long conversations and a quiet glass of something."
+      },
+      {
+        "name": "Tubéreuse",
+        "notes": {
+          "top": "Green, fruity accents",
+          "heart": "Tuberose",
+          "base": "Milky notes"
+        },
+        "details": "A childhood memory of Vietnam's coast, where the sea breeze drifts over fields of tuberose. The flower is famously heady, but here it is made fresh and a little herbal, with soft fruity and creamy facets. Every side of the tuberose, without the heaviness."
+      },
+      {
+        "name": "Ambre",
+        "notes": {
+          "top": "Aniseed, spices",
+          "heart": "Incense, cistus",
+          "base": "Vetiver, patchouli, tonka bean"
+        },
+        "details": "Inspired by the idea of amber beads found in an old treasure box. A warm, enveloping blend of balms, spices and precious woods, where vetiver and patchouli meet aniseed, incense, cistus and tonka bean. Like a golden memory, kept safe; made for evenings in."
+      },
+      {
+        "name": "34 Boulevard Saint Germain",
+        "notes": {
+          "top": "Blackcurrant buds, green leaves",
+          "heart": "Rose, cinnamon",
+          "base": "Amber, patchouli, woods"
+        },
+        "details": "Named for the address of Diptyque's first boutique, in the heart of the Latin Quarter, and meant to hold its memory: bohemian, bookish and artistic. Crushed blackcurrant leaves and fresh moss over rose and warm spices, settling into woods and balms. The house's signature, in a candle."
+      }
+    ]
+  },
+  {
+    "slug": "loewe-scented-candle-170g",
+    "name": "Scented Candle",
+    "brand": "Loewe",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "170g",
+    "burnTime": "",
+    "scentFamily": "fresh",
+    "notes": {
+      "top": "Blackcurrant",
+      "heart": "Tomato leaf",
+      "base": "Fir balsam, oak moss"
+    },
+    "details": "Loewe's Tomato Leaves: the green snap of tomato vines just before the fruit ripens, softened by blackcurrant. Poured into the house's ribbed red vessel, which earns its place on the shelf long after the wax is gone.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/loewe-scented-candle-170g/1.webp",
+      "/images/products/loewe-scented-candle-170g/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "aesop-incense",
+    "name": "Incense",
+    "brand": "Aesop",
+    "category": "scents",
+    "type": "incense",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "woody",
+    "notes": {
+      "top": "Sandalwood",
+      "heart": "Cinnamon, clove",
+      "base": "Earthy spice"
+    },
+    "details": "Sarashina, from the incense Aesop made with perfumer Barnabé Fillion and a Kyoto incense atelier. Dry sandalwood first, then sweet cinnamon and clove, settling into warm, earthy spice. 33 sticks, about 30 minutes each, with a pumice holder.",
+    "care": "Burn on a heat-proof holder in a well-ventilated room, away from anything flammable. Store in a cool, dry place.",
+    "images": [
+      "/images/products/aesop-incense/1.webp",
+      "/images/products/aesop-incense/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "le-labo-scented-candle-200g",
+    "name": "Scented Candle",
+    "brand": "Le Labo",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "200g",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Le Labo's classic candle, in the house's simple glass with a label that names its scent. Slow, clean burning and made to scent a whole room. Message us for the scents in stock.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/le-labo-scented-candle-200g/1.webp",
+      "/images/products/le-labo-scented-candle-200g/2.webp",
+      "/images/products/le-labo-scented-candle-200g/3.webp"
+    ],
+    "featured": true
+  },
+  {
+    "slug": "lancome-absolue-scented-candle-180g",
+    "name": "Absolue Scented Candle",
+    "brand": "Lancôme",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "180g",
+    "burnTime": "",
+    "scentFamily": "floral",
+    "notes": {
+      "top": "White tea",
+      "heart": "Rose",
+      "base": "Musk"
+    },
+    "details": "From Lancôme's Absolue line, built around the house's Grand Rose Extract: velvety rose, soft white tea and fresh musk, in a gold vessel.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/lancome-absolue-scented-candle-180g/1.webp",
+      "/images/products/lancome-absolue-scented-candle-180g/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "burberry-goddess-scented-candle-70g",
+    "name": "Goddess Scented Candle",
+    "brand": "Burberry",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "70g",
+    "burnTime": "",
+    "scentFamily": "sweet",
+    "notes": {
+      "top": "Lavender",
+      "heart": "Vanilla",
+      "base": "Vanilla absolute"
+    },
+    "details": "Burberry Goddess for the home: vanilla at every stage, lit up by aromatic lavender, in blush-pink glass sealed with the gold Goddess medallion.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/burberry-goddess-scented-candle-70g/1.webp",
+      "/images/products/burberry-goddess-scented-candle-70g/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "armani-prive-the-yulong-scented-candle-70g",
+    "name": "The Yulong Scented Candle",
+    "brand": "Armani Privé",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "70g",
+    "burnTime": "",
+    "scentFamily": "fresh",
+    "notes": {
+      "top": "Green mandarin, lime",
+      "heart": "Green tea, smoked black tea",
+      "base": "Ambrette"
+    },
+    "details": "Armani/Privé Thé Yulong, named for China's Yulong mountains: green mandarin and lime over green tea and smoked black tea, finished with ambrette. Topped with a gold lid.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/armani-prive-the-yulong-scented-candle-70g/1.webp",
+      "/images/products/armani-prive-the-yulong-scented-candle-70g/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "givenchy-accord-particulier-scented-candle-70g",
+    "name": "Accord Particulier Scented Candle",
+    "brand": "Givenchy",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "70g",
+    "burnTime": "",
+    "scentFamily": "floral",
+    "notes": {
+      "top": "Damascena rose",
+      "heart": "Patchouli",
+      "base": "Vetiver, ambrox"
+    },
+    "details": "Givenchy's Accord Particulier: Damascena rose with a honeyed edge, grounded by Haitian vetiver, patchouli and warm ambrox. In glossy black glass.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/givenchy-accord-particulier-scented-candle-70g/1.webp",
+      "/images/products/givenchy-accord-particulier-scented-candle-70g/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "loro-piana-incense",
+    "name": "Incense",
+    "brand": "Loro Piana",
+    "category": "scents",
+    "type": "incense",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Incense from Loro Piana's At Home collection, the same quiet luxury as the house's cashmere, for the rooms you live in. Message us for the scent in stock.",
+    "care": "Burn on a heat-proof holder in a well-ventilated room, away from anything flammable. Store in a cool, dry place.",
+    "images": [
+      "/images/products/loro-piana-incense/1.webp",
+      "/images/products/loro-piana-incense/2.webp",
+      "/images/products/loro-piana-incense/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "diptyque-hourglass-fragrance-diffuser",
+    "name": "Hourglass Fragrance Diffuser",
+    "brand": "Diptyque",
+    "category": "scents",
+    "type": "diffuser",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Diptyque's hourglass: turn it over and the fragrance flows slowly from one glass bulb to the other, scenting the room for about an hour each time. Refillable twice. Choose your scent below.",
+    "care": "Keep upright on a stable surface, away from direct sunlight and heat.",
+    "images": [
+      "/images/products/diptyque-hourglass-fragrance-diffuser/1.webp",
+      "/images/products/diptyque-hourglass-fragrance-diffuser/2.webp"
+    ],
+    "featured": false,
+    "variants": [
+      {
+        "name": "Mimosa",
+        "notes": {
+          "top": "",
+          "heart": "Mimosa",
+          "base": "Honey"
+        },
+        "details": "February in the South of France, when the hills of Tanneron near Grasse turn gold with mimosa. Small, fluffy blooms with a velvety, slightly honeyed scent: soft, sunny and quietly sweet, never cloying."
+      },
+      {
+        "name": "Baies",
+        "notes": {
+          "top": "Blackcurrant leaves",
+          "heart": "Bulgarian rose",
+          "base": ""
+        },
+        "details": "Diptyque's best-seller, from the house's herbarium of fruits. A basket of blackcurrants picked that morning, some still on their stems and leaves, cool and tangy, with a few hand-cut roses tucked among them. Bright, green and juicy rather than sweet: a scent that makes a room feel freshly aired."
+      },
+      {
+        "name": "Figuier",
+        "notes": {
+          "top": "Fig leaf",
+          "heart": "Green fig",
+          "base": "Fig wood"
+        },
+        "details": "Not just the fig but the whole tree: an orchard running along a Mediterranean shore, with the summer sun at its height and a warm wind moving through the branches. Green leaves and milky sap meet warm bark and figs just short of ripe. Verdant and sophisticated, never sugary."
+      },
+      {
+        "name": "Roses",
+        "notes": {
+          "top": "",
+          "heart": "Bulgarian rose",
+          "base": ""
+        },
+        "details": "Rose bushes in May, caught over the course of a morning. At first the petals are still cool from the night and the scent is fresh and dewy; as the sun comes up it opens into a full, bright bloom. Diptyque's most restrained candle, and a pure homage to the flower."
+      },
+      {
+        "name": "Fleur d'Oranger",
+        "notes": {
+          "top": "Citrus peel",
+          "heart": "Orange blossom",
+          "base": "Bark"
+        },
+        "details": "The whole orange tree in bloom: tangy peel, green leaves and bark around the white blossom. Citrusy, a little herbal and gently spiced. Turn the hourglass and lose an hour to it."
+      }
+    ]
+  },
+  {
+    "slug": "miu-miu-scented-candle-small",
+    "name": "Scented Candle, Small",
+    "brand": "Miu Miu",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Miu Miu's candle, in a glossy red vessel sculpted to look like melting, dripping wax. Boxed in the house's white and black packaging. Message us for the scent.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/miu-miu-scented-candle-small/1.webp",
+      "/images/products/miu-miu-scented-candle-small/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "loewe-scented-candle-set-of-3-55g",
+    "name": "Scented Candle Set",
+    "brand": "Loewe",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "3 × 55g",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Three small Loewe candles in one box, each made entirely of wax: Tomato Leaves (green and juicy), Cypress Balls (resinous and fresh) and Honeysuckle (sweetly floral). A good way to find your Loewe scent, or a ready-made gift.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/loewe-scented-candle-set-of-3-55g/1.webp",
+      "/images/products/loewe-scented-candle-set-of-3-55g/2.webp"
+    ],
+    "featured": true
+  },
+  {
+    "slug": "diptyque-scented-candle-1500g",
+    "name": "Scented Candle",
+    "brand": "Diptyque",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "1500g",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Diptyque's largest candle: 1.5kg with five wicks, in an enamelled stoneware pot, made for big rooms and long evenings outdoors. Choose your scent below.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/diptyque-scented-candle-1500g/1.webp",
+      "/images/products/diptyque-scented-candle-1500g/2.webp",
+      "/images/products/diptyque-scented-candle-1500g/3.webp"
+    ],
+    "featured": false,
+    "variants": [
+      {
+        "name": "Baies",
+        "notes": {
+          "top": "Blackcurrant leaves",
+          "heart": "Bulgarian rose",
+          "base": ""
+        },
+        "details": "Diptyque's best-seller, from the house's herbarium of fruits. A basket of blackcurrants picked that morning, some still on their stems and leaves, cool and tangy, with a few hand-cut roses tucked among them. Bright, green and juicy rather than sweet: a scent that makes a room feel freshly aired."
+      },
+      {
+        "name": "Figuier",
+        "notes": {
+          "top": "Fig leaf",
+          "heart": "Green fig",
+          "base": "Fig wood"
+        },
+        "details": "Not just the fig but the whole tree: an orchard running along a Mediterranean shore, with the summer sun at its height and a warm wind moving through the branches. Green leaves and milky sap meet warm bark and figs just short of ripe. Verdant and sophisticated, never sugary."
+      },
+      {
+        "name": "Feu de Bois",
+        "notes": {
+          "top": "Juniper",
+          "heart": "Birch",
+          "base": "Cade"
+        },
+        "details": "One of the scents the founders made in 1963. Logs slowly giving way in a winter hearth, the fire roaring and throwing shadows on the walls: dense, resinous and smoky, warm rather than sharp. Made for cold nights, long conversations and a quiet glass of something."
+      },
+      {
+        "name": "Tubéreuse",
+        "notes": {
+          "top": "Green, fruity accents",
+          "heart": "Tuberose",
+          "base": "Milky notes"
+        },
+        "details": "A childhood memory of Vietnam's coast, where the sea breeze drifts over fields of tuberose. The flower is famously heady, but here it is made fresh and a little herbal, with soft fruity and creamy facets. Every side of the tuberose, without the heaviness."
+      },
+      {
+        "name": "34 Boulevard Saint Germain",
+        "notes": {
+          "top": "Blackcurrant buds, green leaves",
+          "heart": "Rose, cinnamon",
+          "base": "Amber, patchouli, woods"
+        },
+        "details": "Named for the address of Diptyque's first boutique, in the heart of the Latin Quarter, and meant to hold its memory: bohemian, bookish and artistic. Crushed blackcurrant leaves and fresh moss over rose and warm spices, settling into woods and balms. The house's signature, in a candle."
+      },
+      {
+        "name": "Ambre",
+        "notes": {
+          "top": "Aniseed, spices",
+          "heart": "Incense, cistus",
+          "base": "Vetiver, patchouli, tonka bean"
+        },
+        "details": "Inspired by the idea of amber beads found in an old treasure box. A warm, enveloping blend of balms, spices and precious woods, where vetiver and patchouli meet aniseed, incense, cistus and tonka bean. Like a golden memory, kept safe; made for evenings in."
+      }
+    ]
+  },
+  {
+    "slug": "byredo-scented-candle-70g",
+    "name": "Scented Candle",
+    "brand": "Byredo",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "70g",
+    "burnTime": "",
+    "scentFamily": "woody",
+    "notes": {
+      "top": "Peach, plum",
+      "heart": "Peony, violet",
+      "base": "Leather, patchouli, vanilla"
+    },
+    "details": "Byredo's Bibliothèque, the scent of an old library: ripe peach and plum, violet and peony, over worn leather, patchouli and vanilla. In the house's black glass.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/byredo-scented-candle-70g/1.webp",
+      "/images/products/byredo-scented-candle-70g/2.webp",
+      "/images/products/byredo-scented-candle-70g/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "diptyque-scented-candle-set-of-3-70g",
+    "name": "Scented Candle Set",
+    "brand": "Diptyque",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "3 × 70g",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Three of Diptyque's best-loved scents in small 70g candles, boxed as a gift: Baies (blackcurrant leaves and Bulgarian rose), Figuier (the whole fig tree: leaves, wood and fruit) and Roses (pure rose). About 30 hours each.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/diptyque-scented-candle-set-of-3-70g/1.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "byredo-incense",
+    "name": "Incense",
+    "brand": "Byredo",
+    "category": "scents",
+    "type": "incense",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "smoky",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Byredo's Trois Encens: incense in three of the house's scents. Tree House (bamboo, hay, labdanum, myrrh and leather), Burning Rose (rose, violet, birch and ebony woods) and Bibliothèque. With a holder.",
+    "care": "Burn on a heat-proof holder in a well-ventilated room, away from anything flammable. Store in a cool, dry place.",
+    "images": [
+      "/images/products/byredo-incense/1.webp",
+      "/images/products/byredo-incense/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "acca-kappa-scented-candle-180g",
+    "name": "Scented Candle",
+    "brand": "Acca Kappa",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "180g",
+    "burnTime": "",
+    "scentFamily": "fresh",
+    "notes": {
+      "top": "Lemon, bergamot, juniper",
+      "heart": "Lavender, sweet woods",
+      "base": "White musk, amber"
+    },
+    "details": "Acca Kappa's Muschio Bianco (White Moss), the Treviso house's best-known scent: bright lemon, bergamot and juniper, then lavender and soft woods, settling on white musk and amber.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/acca-kappa-scented-candle-180g/1.webp",
+      "/images/products/acca-kappa-scented-candle-180g/2.webp",
+      "/images/products/acca-kappa-scented-candle-180g/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "cote-noire-scented-candle-75g",
+    "name": "Scented Candle",
+    "brand": "Côte Noire",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "75g",
+    "burnTime": "Approx. 25 hours",
+    "scentFamily": "sweet",
+    "notes": {
+      "top": "Strawberry",
+      "heart": "Blackberry",
+      "base": "Pinot Noir grape"
+    },
+    "details": "Côte Noire's Pink Champagne, their best-loved scent: sparkling strawberry over blackberry, settling on Pinot Noir grape. Hand-poured in a paraffin-free blend of soy, coconut and beeswax, in a dark glass vessel with the gold badge and a crystal glass lid that doubles as a base.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/cote-noire-scented-candle-75g/1.webp",
+      "/images/products/cote-noire-scented-candle-75g/2.webp",
+      "/images/products/cote-noire-scented-candle-75g/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "cote-noire-scented-candle-185g",
+    "name": "Scented Candle",
+    "brand": "Côte Noire",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "185g",
+    "burnTime": "Approx. 60 hours",
+    "scentFamily": "sweet",
+    "notes": {
+      "top": "Strawberry",
+      "heart": "Blackberry",
+      "base": "Pinot Noir grape"
+    },
+    "details": "Côte Noire's Pink Champagne, their best-loved scent: sparkling strawberry over blackberry, settling on Pinot Noir grape. Hand-poured in a paraffin-free blend of soy, coconut and beeswax, in a dark glass vessel with the gold badge and a crystal glass lid that doubles as a base.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/cote-noire-scented-candle-185g/1.webp",
+      "/images/products/cote-noire-scented-candle-185g/2.webp",
+      "/images/products/cote-noire-scented-candle-185g/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "laundrin-scented-candle-130g",
+    "name": "Scented Candle",
+    "brand": "Laundrin'",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "130g",
+    "burnTime": "",
+    "scentFamily": "fresh",
+    "notes": {
+      "top": "Bergamot, white tea",
+      "heart": "Rose",
+      "base": "Patchouli, musk, sandalwood"
+    },
+    "details": "From Laundrin's Good Tea Time line: White Tea, a soft blend of white tea, rose and bergamot over patchouli, musk and sandalwood. Calm, clean and easy to live with.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/laundrin-scented-candle-130g/1.webp",
+      "/images/products/laundrin-scented-candle-130g/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "l-occitane-scented-candle-180g",
+    "name": "Scented Candle",
+    "brand": "L'Occitane",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "180g",
+    "burnTime": "Up to 36 hours",
+    "scentFamily": "fresh",
+    "notes": {
+      "top": "Sweet orange, bergamot, mandarin",
+      "heart": "Lavender",
+      "base": "Geranium"
+    },
+    "details": "L'Occitane's Cocon de Sérénité, made to wind down with: lavender from Provence, softened by sweet orange, bergamot and mandarin, with a touch of geranium. Scented with essential oils, in a soft grey vessel.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/l-occitane-scented-candle-180g/1.webp",
+      "/images/products/l-occitane-scented-candle-180g/2.webp",
+      "/images/products/l-occitane-scented-candle-180g/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "lancome-absolue-x-louvre-scented-candle-180g",
+    "name": "Absolue × Louvre Scented Candle",
+    "brand": "Lancôme",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "180g",
+    "burnTime": "",
+    "scentFamily": "floral",
+    "notes": {
+      "top": "White tea",
+      "heart": "Rose",
+      "base": "Musk"
+    },
+    "details": "A limited edition from Lancôme's collaboration with the Louvre: the Absolue candle's fresh rose, soft white tea and warm musk, in a collectible Louvre vessel.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/lancome-absolue-x-louvre-scented-candle-180g/1.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "clarins-precious-scented-candle-75g",
+    "name": "Precious Scented Candle",
+    "brand": "Clarins",
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "75g",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "A candle from Clarins' Precious collection, the house's most indulgent line. Message us for the scent.",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "images": [
+      "/images/products/clarins-precious-scented-candle-75g/1.webp",
+      "/images/products/clarins-precious-scented-candle-75g/2.webp",
+      "/images/products/clarins-precious-scented-candle-75g/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "wedgwood-x-vera-wang-love-knot-champagne-flutes",
+    "name": "Love Knot Champagne Flutes",
+    "brand": "Wedgwood × Vera Wang",
+    "category": "dinnerware",
+    "type": "glassware",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Vera Wang for Wedgwood: a pair of toasting flutes, each with Vera Wang's signature braided Love Knot in silver plate at the base. Made for wedding toasts and anniversaries.",
+    "care": "",
+    "images": [
+      "/images/products/wedgwood-x-vera-wang-love-knot-champagne-flutes/1.webp",
+      "/images/products/wedgwood-x-vera-wang-love-knot-champagne-flutes/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "wedgwood-x-vera-wang-love-together-champagne-flutes",
+    "name": "Love Together Champagne Flutes",
+    "brand": "Wedgwood × Vera Wang",
+    "category": "dinnerware",
+    "type": "glassware",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "A pair of Vera Wang for Wedgwood toasting flutes, made for raising a glass to two. A lovely wedding or anniversary gift.",
+    "care": "",
+    "images": [
+      "/images/products/wedgwood-x-vera-wang-love-together-champagne-flutes/1.webp",
+      "/images/products/wedgwood-x-vera-wang-love-together-champagne-flutes/2.webp",
+      "/images/products/wedgwood-x-vera-wang-love-together-champagne-flutes/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "wedgwood-intaglio-mug-set",
+    "name": "Intaglio Mug Set",
+    "brand": "Wedgwood",
+    "category": "dinnerware",
+    "type": "mug",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Wedgwood Intaglio: white fine bone china embossed with patterns from the house's neoclassical archive, after the old crafts of knurling and engine turning. Crisp to the touch, and dishwasher and microwave safe.",
+    "care": "",
+    "images": [
+      "/images/products/wedgwood-intaglio-mug-set/1.webp",
+      "/images/products/wedgwood-intaglio-mug-set/2.webp",
+      "/images/products/wedgwood-intaglio-mug-set/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "wedgwood-gio-mug-set",
+    "name": "Gio Mug Set",
+    "brand": "Wedgwood",
+    "category": "dinnerware",
+    "type": "mug",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Wedgwood Gio: a pair of white fine bone china mugs embossed with a geometric pattern you can feel under your fingertips. Dishwasher and microwave safe.",
+    "care": "",
+    "images": [
+      "/images/products/wedgwood-gio-mug-set/1.webp",
+      "/images/products/wedgwood-gio-mug-set/2.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "wedgwood-butterfly-bloom-teacup-set",
+    "name": "Butterfly Bloom Teacup Set",
+    "brand": "Wedgwood",
+    "category": "dinnerware",
+    "type": "teaware",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Wedgwood Butterfly Bloom: fine bone china teacups and saucers drawn from the Wedgwood archive, with pastel peonies, posies and butterflies, each rim banded in gold.",
+    "care": "",
+    "images": [
+      "/images/products/wedgwood-butterfly-bloom-teacup-set/1.webp",
+      "/images/products/wedgwood-butterfly-bloom-teacup-set/2.webp",
+      "/images/products/wedgwood-butterfly-bloom-teacup-set/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "wedgwood-renaissance-tea-set",
+    "name": "Renaissance Tea Set",
+    "brand": "Wedgwood",
+    "category": "dinnerware",
+    "type": "teaware",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Wedgwood Renaissance: a teapot with cups and saucers in fine bone china, with an oval motif after the Wedgwood cameo, a scrolled neoclassical border and gold banding.",
+    "care": "",
+    "images": [
+      "/images/products/wedgwood-renaissance-tea-set/1.webp",
+      "/images/products/wedgwood-renaissance-tea-set/2.webp",
+      "/images/products/wedgwood-renaissance-tea-set/3.webp"
+    ],
+    "featured": true
+  },
+  {
+    "slug": "wedgwood-renaissance-mug-set",
+    "name": "Renaissance Mug Set",
+    "brand": "Wedgwood",
+    "category": "dinnerware",
+    "type": "mug",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "A pair of Wedgwood Renaissance mugs in fine bone china, with the collection's cameo-inspired oval motif, scrolled neoclassical border and gold banding.",
+    "care": "",
+    "images": [
+      "/images/products/wedgwood-renaissance-mug-set/1.webp",
+      "/images/products/wedgwood-renaissance-mug-set/2.webp",
+      "/images/products/wedgwood-renaissance-mug-set/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "slug": "wedgwood-wild-strawberry-chopstick-set",
+    "name": "Wild Strawberry Chopstick Set",
+    "brand": "Wedgwood",
+    "category": "dinnerware",
+    "type": "cutlery",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Wedgwood's Wild Strawberry, first drawn in 1965: ripe strawberries and trailing leaves, here on a set of chopsticks for the table.",
+    "care": "",
+    "images": [
+      "/images/products/wedgwood-wild-strawberry-chopstick-set/1.webp",
+      "/images/products/wedgwood-wild-strawberry-chopstick-set/2.webp",
+      "/images/products/wedgwood-wild-strawberry-chopstick-set/3.webp"
+    ],
+    "featured": false
+  },
+  {
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "scentFamily": "",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "featured": false,
+    "slug": "replica-165g",
+    "name": "Replica Scented Candle",
+    "brand": "Maison Margiela",
+    "size": "165g",
+    "burnTime": "Over 40 hours",
+    "details": "Maison Margiela's Replica candles each recreate a familiar memory, a place or a moment, in the house's white glass with its signature Replica label. Choose your scent below.",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "variants": [
+      {
+        "name": "By the Fireplace",
+        "details": "A winter evening by the fire, with chestnuts roasting in the embers: warm, smoky and deeply comforting.",
+        "notes": {
+          "top": "Pink pepper, clove",
+          "heart": "Chestnut accord",
+          "base": "Cashmeran"
+        }
+      },
+      {
+        "name": "Lazy Sunday Morning",
+        "details": "Freshly washed cotton sheets and soft sunlight on your skin: serene, clean and unhurried.",
+        "notes": {
+          "top": "Lily of the valley",
+          "heart": "Iris",
+          "base": "White musks, ambrette seed"
+        }
+      },
+      {
+        "name": "Jazz Club",
+        "details": "A glass of amber rum and the smoke of a cigar in a low-lit jazz club: warm, smoky and quietly convivial.",
+        "notes": {
+          "top": "Pink pepper",
+          "heart": "Rum absolute",
+          "base": "Tobacco leaf, vanilla"
+        }
+      },
+      {
+        "name": "Autumn Vibes",
+        "details": "A walk through the forest in autumn: tall cedars, damp moss and the earthy scent of the underwood.",
+        "notes": {
+          "top": "Red berries, cardamom",
+          "heart": "Moss accord",
+          "base": "Cedarwood"
+        }
+      },
+      {
+        "name": "Beach Vibes",
+        "details": "Burning sand underfoot and sun-kissed skin on a summer beach: joyful, sunny and carefree.",
+        "notes": {
+          "top": "Bergamot",
+          "heart": "Ylang-ylang",
+          "base": "Coconut milk, musks"
+        }
+      },
+      {
+        "name": "Afternoon Delight",
+        "details": "A Parisian café and warm madeleines fresh from the oven: a small moment of pure self-indulgence.",
+        "notes": {
+          "top": "Madeleine accord",
+          "heart": "Sandalwood",
+          "base": "Madagascar vanilla"
+        }
+      }
+    ],
+    "images": [
+      "/images/products/replica-165g/1.webp",
+      "/images/products/replica-165g/2.webp"
+    ]
+  },
+  {
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "scentFamily": "",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "featured": false,
+    "slug": "acqua-di-parma-200g",
+    "name": "Scented Candle",
+    "brand": "Acqua Di Parma",
+    "size": "200g",
+    "burnTime": "Up to 50 hours",
+    "details": "Acqua di Parma's candles bring Italian craftsmanship home: the Home Collection in its signature yellow glass, Blu Mediterraneo in blue, and Signatures of the Sun in black. Choose your scent below.",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "variants": [
+      {
+        "name": "Buongiorno",
+        "details": "Morning in the Italian countryside: freshly cut grass and sun-dried linen, softened by moss and warm natural wood.",
+        "notes": {
+          "top": "Italian lemon, mint leaves",
+          "heart": "Rosemary, lavandin, jasmine",
+          "base": "Cedarwood, musk"
+        }
+      },
+      {
+        "name": "Luce di Colonia",
+        "details": "Inspired by the house's signature Colonia: bright citrus, soft florals and elegant warm woods.",
+        "notes": {
+          "top": "Orange, lemon, petitgrain",
+          "heart": "Neroli",
+          "base": "Patchouli, vetiver"
+        }
+      },
+      {
+        "name": "La Casa sul Lago",
+        "details": "A lakeside garden at dawn: morning dew, fresh petals and water, wrapped in a soft embrace of musk.",
+        "notes": {
+          "top": "Calabrian bergamot",
+          "heart": "Lily of the valley, cyclamen, aquatic notes",
+          "base": "Musk, amber"
+        }
+      },
+      {
+        "name": "Aperitivo in Terrazza",
+        "details": "Sunset aperitivo on an Italian terrace: sparkling lime, blood orange and grapefruit with bitter gentian and warm cinnamon.",
+        "notes": {
+          "top": "Lime, blood orange, grapefruit",
+          "heart": "Gentian",
+          "base": "Ceylon cinnamon"
+        }
+      },
+      {
+        "name": "Insieme",
+        "details": "The warmth of being together: sunny lemon and neroli with musk, wrapped in an amber accord.",
+        "notes": {
+          "top": "Lemon",
+          "heart": "Neroli",
+          "base": "Musk, amber"
+        }
+      },
+      {
+        "name": "Grazie",
+        "details": "A thank-you in candle form: radiant bergamot, rose and ylang-ylang with a delicate salty touch.",
+        "notes": {
+          "top": "Bergamot",
+          "heart": "Rose, ylang-ylang",
+          "base": "Marine salt"
+        }
+      },
+      {
+        "name": "Oh l'Amore",
+        "details": "Heart-warming and enveloping: pepper and clove over rich balsamic and amber notes.",
+        "notes": {
+          "top": "Black pepper, clove",
+          "heart": "Opoponax, benzoin",
+          "base": "Tonka bean"
+        }
+      },
+      {
+        "name": "Arancia di Capri",
+        "details": "Capri's orange groves in a blue glass jar: sweet orange and mandarin, a hint of cardamom, rounded with caramel and musk.",
+        "notes": {
+          "top": "Sweet orange, Italian mandarin, lemon",
+          "heart": "Petitgrain, cardamom",
+          "base": "Caramel, musk"
+        }
+      },
+      {
+        "name": "Mirto di Panarea",
+        "details": "The island of Panarea: myrtle and basil on the sea breeze, with jasmine, rose, juniper and cedar.",
+        "notes": {
+          "top": "Myrtle, basil, lemon, bergamot",
+          "heart": "Jasmine, Damask rose, lentisk",
+          "base": "Juniper, cedarwood, amber"
+        }
+      },
+      {
+        "name": "Fico di Amalfi",
+        "details": "Fig trees on the Amalfi coast: citrus and fig nectar with a touch of pepper, over fig wood and cedar.",
+        "notes": {
+          "top": "Bergamot, lemon, grapefruit",
+          "heart": "Fig nectar, red pepper, jasmine",
+          "base": "Fig wood, cedarwood, benzoin"
+        }
+      },
+      {
+        "name": "Granita al Gelso",
+        "details": "An Italian mulberry granita: juicy berries with hibiscus and a warm brioche accord, over bourbon vanilla.",
+        "notes": {
+          "top": "Mulberry, cassis",
+          "heart": "Hibiscus, brioche accord",
+          "base": "Bourbon vanilla, musk"
+        }
+      },
+      {
+        "name": "Sorbetto al Limone",
+        "details": "A lemon sorbet on a summer afternoon: Italian lemon, cardamom and mint over a soft woody base.",
+        "notes": {
+          "top": "Italian lemon, cardamom, mint",
+          "heart": "Basil, lime, lemongrass",
+          "base": "Cashmere wood, vanilla, musk"
+        }
+      },
+      {
+        "name": "Latte di Mandorla",
+        "details": "Iced almond milk, Italian style: creamy and gourmand, with apricot kernel, tonka and orgeat.",
+        "notes": {
+          "top": "Iced milk accord, apricot kernel",
+          "heart": "Tonka, orgeat",
+          "base": "Sandalwood, musk, bourbon vanilla"
+        }
+      },
+      {
+        "name": "Cedro Virtuoso",
+        "details": "From the Signatures of the Sun: a creamy, woody candle of hazelnut and cedarwood in a yellow glass jar.",
+        "notes": {
+          "top": "Hazelnut",
+          "heart": "Virginia cedarwood",
+          "base": "Chinese cedarwood"
+        }
+      },
+      {
+        "name": "Gelsomino",
+        "details": "From the Signatures of the Sun: jasmine and honey nectar with orange, olibanum and black tea, over warm woods.",
+        "notes": {
+          "top": "Orange, olibanum, eucalyptus bud",
+          "heart": "Jasmine, honey nectar, black tea",
+          "base": "Gaiac wood, patchouli, cypriol"
+        }
+      },
+      {
+        "name": "Zafferano",
+        "details": "From the Signatures of the Sun: bright citrus opening onto jasmine, rose and saffron, over vanilla and tonka.",
+        "notes": {
+          "top": "Mandarin, bergamot, coriander, orange",
+          "heart": "Jasmine sambac, rose, saffron, orange blossom",
+          "base": "Vanilla, tonka bean, patchouli"
+        }
+      },
+      {
+        "name": "Osmanthus",
+        "details": "From the Signatures of the Sun: green mandarin and neroli, soft peony, and the apricot glow of osmanthus.",
+        "notes": {
+          "top": "Green mandarin, neroli",
+          "heart": "Peony, pink pepper, ambrette",
+          "base": "Osmanthus, patchouli"
+        }
+      },
+      {
+        "name": "Quercia",
+        "details": "From the Signatures of the Sun: an oak forest in candle form, with citrus, cardamom and cedar over tonka and oakmoss.",
+        "notes": {
+          "top": "Lemon, bergamot, petitgrain, pink pepper",
+          "heart": "Cardamom, geranium, cedarwood",
+          "base": "Tonka bean, patchouli, oakmoss"
+        }
+      },
+      {
+        "name": "Yuzu",
+        "details": "From the Signatures of the Sun: sparkling yuzu and Sichuan pepper with lotus and mimosa, over sandalwood.",
+        "notes": {
+          "top": "Yuzu, bergamot, Sichuan pepper",
+          "heart": "Lotus, mimosa, violet leaf, jasmine",
+          "base": "Musk, liquorice, sandalwood"
+        }
+      },
+      {
+        "name": "Oud",
+        "details": "From the Signatures of the Sun: citrus opening onto precious oud and coriander, over leather and sandalwood.",
+        "notes": {
+          "top": "Bergamot, orange",
+          "heart": "Amyris, coriander, oud",
+          "base": "Cedarwood, leather, patchouli, sandalwood"
+        }
+      }
+    ],
+    "images": [
+      "/images/products/acqua-di-parma-200g/1.webp"
+    ]
+  },
+  {
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "scentFamily": "",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "featured": false,
+    "slug": "woodwick-ellipse-453g",
+    "name": "Ellipse",
+    "brand": "WoodWick",
+    "size": "453g",
+    "burnTime": "Up to 50 hours",
+    "details": "WoodWick's Ellipse, with the signature wooden HearthWick that crackles softly like a fireplace as it burns, in a sculpted glass vessel. Choose your scent below.",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "variants": [
+      {
+        "name": "Fireside",
+        "details": "An evening by a crackling fire: bright bergamot and apple peel over golden amber and smoked mahogany.",
+        "notes": {
+          "top": "Italian Bergamot, Apple Peel",
+          "heart": "Golden Amber, Black Oak",
+          "base": "Smoked Mahogany, Vetiver, Musk"
+        }
+      },
+      {
+        "name": "White Teak",
+        "details": "Fresh and woody: a marine breeze and lavender over white teak, fir balsam and cedar.",
+        "notes": {
+          "top": "Fresh, Marine, Lavender",
+          "heart": "White Teak, Fir Balsam, Oak, Sandalwood, Cedarwood",
+          "base": "Moss, Teakwood"
+        }
+      },
+      {
+        "name": "Vanilla & Sea Salt",
+        "details": "Salty sea air and green apple softened by jasmine and a warm vanilla orchid.",
+        "notes": {
+          "top": "Sea Salt, Green Apple, Melon",
+          "heart": "Jasmine, Muguet, Rose",
+          "base": "Vanilla Orchid, Blonde Woods, Musk"
+        }
+      },
+      {
+        "name": "Crystal Ginger",
+        "details": "Sparkling ginger and orange with eucalyptus and orange blossom, over vanilla and marshmallow.",
+        "notes": {
+          "top": "Orange, Ginger, Bergamot",
+          "heart": "Eucalyptus, Jasmine, Rose, Orange Blossom",
+          "base": "Vanilla, Marshmallow, Sandalwood, Musk"
+        }
+      },
+      {
+        "name": "Pumpkin Praline",
+        "details": "Pumpkin pie and toasted pecans with cinnamon and ginger, over condensed milk and maple.",
+        "notes": {
+          "top": "Pumpkin, Pecan, Star Anise, Nutmeg",
+          "heart": "Pumpkin Puree, Cinnamon, Ginger",
+          "base": "Condensed Milk, Maple, Vanilla"
+        }
+      },
+      {
+        "name": "Silk & Spice",
+        "details": "Warm spice route: orange, clove, cardamom and saffron, over cedar, vanilla and sandalwood.",
+        "notes": {
+          "top": "Orange, Pepper, Clove, Ginger, Cardamom",
+          "heart": "Eucalyptus, Turmeric, Cinnamon, Saffron",
+          "base": "Cedarwood, Vanilla, Sandalwood"
+        }
+      },
+      {
+        "name": "Spiced Blackberry",
+        "details": "Tart berries and orange zest with cinnamon and caramel, over vanilla sugar and tonka.",
+        "notes": {
+          "top": "Tart Berries, Cassis Apple, Peach, Orange Zest",
+          "heart": "Coconut, Fruity, Cinnamon, Clove, Caramel, Herbal",
+          "base": "Vanilla Sugar, Tonka Bean, Woody"
+        }
+      },
+      {
+        "name": "Velvet Plum",
+        "details": "Dark cherry, blackberry and winter pear with plum and amber, over vanilla and soft woods.",
+        "notes": {
+          "top": "Lemon, Strawberry, Blackberry, Dark Cherry, Winter Pear, Davana",
+          "heart": "Warm Amber, Winter Lily, Immortelle, Plum",
+          "base": "Vanilla, Blonde Woods, Moss, Tolu Balm, Musk"
+        }
+      },
+      {
+        "name": "Lavender Spa",
+        "details": "A calming spa day: lavender with rosemary and eucalyptus, over soft cedar.",
+        "notes": {
+          "top": "Green Leaves, Lavender",
+          "heart": "Lavender, Rosemary, Eucalyptus",
+          "base": "Lavender, Cedar"
+        }
+      },
+      {
+        "name": "Vanilla Bean",
+        "details": "Pure comfort: rich vanilla absolute with sugar cookie and graham cracker.",
+        "notes": {
+          "top": "Vanilla Absolute, Buttery",
+          "heart": "Sugar Cookie, Graham Cracker",
+          "base": "Vanilla Bean, Sugar Cane"
+        }
+      },
+      {
+        "name": "Wood Smoke",
+        "details": "A smouldering campfire: clove and incense with pine and cedar, over glowing amber and smoky woods.",
+        "notes": {
+          "top": "Clove Bud, Warm Incense",
+          "heart": "Pine Needle, Cedar Leaf",
+          "base": "Glowing Amber, Smoldering Embers, Black Cedar, Smoky Guaicwood, Sandalwood, Black Musk, Vanilla"
+        }
+      },
+      {
+        "name": "Phantom Cherry",
+        "details": "Dark cherry and raspberry with crushed clove and tonka, over smoked vanilla and sandalwood.",
+        "notes": {
+          "top": "Dark Cherry, Raspberry, Rhubarb",
+          "heart": "Amberwood, Moss, Crushed Clove, Tonka Bean",
+          "base": "Cashmere, Smoked Vanilla, Creamy Sandalwood, Milk Musk"
+        }
+      },
+      {
+        "name": "Humidor",
+        "details": "A gentleman's study: green moss and orchid with aged leather and warm spice, over sandalwood and amber.",
+        "notes": {
+          "top": "Green Mosses, Tender Orchid",
+          "heart": "Forest Lily, Vanilla Bean, Oriental Woods, Musk, Aged Leather, Warm Spice",
+          "base": "Sandalwood, Tonka Bean, Leather, Smooth Amber"
+        }
+      },
+      {
+        "name": "Cashmere",
+        "details": "Soft and cosy: sweet quince and pear with orris and pink pepper, over sandalwood and creamy tonka.",
+        "notes": {
+          "top": "Quince, Pear, Red Fruit, Iced Ginger",
+          "heart": "Orris, Pink Pepper, Blackthorn, Blackberry",
+          "base": "Sandalwood, Cedarwood, Tonka Bean"
+        }
+      },
+      {
+        "name": "Cinnamon Chai",
+        "details": "A spiced chai latte: peach and coconut milk with cinnamon and clove, over vanilla and caramel.",
+        "notes": {
+          "top": "Fruity, Peach Nectar, Coconut Milk",
+          "heart": "Cinnamon, Clove, Heliotrope",
+          "base": "Vanilla, Caramel Sugar, Powdery, Tonka, Buttery"
+        }
+      }
+    ],
+    "images": [
+      "/images/products/woodwick-ellipse-453g/1.webp"
+    ]
+  },
+  {
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "scentFamily": "",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "featured": false,
+    "slug": "moumou-100g",
+    "name": "Scented Candle",
+    "brand": "MouMou",
+    "size": "100g",
+    "burnTime": "Approx. 20 hours",
+    "details": "MouMou is a Japanese fragrance line inspired by natural fabrics. Poured in 100% soy wax in a frosted glass, and made in Japan. Choose your scent below.",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "variants": [
+      {
+        "name": "Cotton",
+        "details": "Soft and gentle, like being wrapped in freshly washed cotton.",
+        "notes": {
+          "top": "",
+          "heart": "",
+          "base": ""
+        }
+      },
+      {
+        "name": "Silk",
+        "details": "Refined and supple, with the quiet elegance of silk.",
+        "notes": {
+          "top": "",
+          "heart": "",
+          "base": ""
+        }
+      },
+      {
+        "name": "Linen",
+        "details": "Fresh and airy: the scent for feeling like yourself.",
+        "notes": {
+          "top": "",
+          "heart": "",
+          "base": ""
+        }
+      },
+      {
+        "name": "Wool",
+        "details": "Warm and enveloping, like a favourite wool throw.",
+        "notes": {
+          "top": "",
+          "heart": "",
+          "base": ""
+        }
+      }
+    ],
+    "images": [
+      "/images/products/moumou-100g/1.webp"
+    ]
+  },
+  {
+    "category": "scents",
+    "type": "candle",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "scentFamily": "fresh",
+    "care": "Burn for two to three hours the first time, so the wax melts evenly to the edge. Trim the wick to 5mm before each use. Never leave a burning candle unattended.",
+    "featured": false,
+    "slug": "clarins-eau-dynamisante-35g",
+    "name": "Eau Dynamisante",
+    "brand": "Clarins",
+    "size": "35g",
+    "burnTime": "",
+    "details": "Clarins' Eau Dynamisante, the first fragrance to combine aromatherapy and skincare, as a candle: energising citrus, bitter orange, rosemary and thyme over patchouli.",
+    "notes": {
+      "top": "Citrus, bitter orange",
+      "heart": "Rosemary, white thyme",
+      "base": "Patchouli"
+    },
+    "images": [
+      "/images/products/clarins-eau-dynamisante-35g/1.webp"
+    ]
+  }
+]

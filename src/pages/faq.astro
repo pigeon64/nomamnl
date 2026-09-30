@@ -1,0 +1,43 @@
+---
+import InfoPage from '../components/InfoPage.astro';
+import { site, peso } from '../config';
+---
+<InfoPage title="FAQ" intro="Quick answers to what people ask us most. Anything else, just message us."
+  description={`${site.name} FAQ: authenticity, payment, same-day delivery in Metro Manila, gift wrap, pre-orders and returns.`}>
+  <details>
+    <summary>Are your products authentic?</summary>
+    <p>Yes, every piece is authentic, guaranteed. {site.name} is an independent reseller and isn't affiliated with the brands we carry.</p>
+  </details>
+  <details>
+    <summary>How do I order?</summary>
+    <p>Tap <strong>Order on Messenger</strong> on any product and send the message that opens. We'll confirm the details with you. See <a href="/how-to-order">how to order</a>.</p>
+  </details>
+  <details>
+    <summary>How can I pay?</summary>
+    <p>GCash, card or cash on delivery.</p>
+  </details>
+  <details>
+    <summary>How fast is delivery?</summary>
+    <p>In-stock pieces are delivered the same day across Metro Manila. Shipping is free on orders over {peso(site.freeShippingThreshold)}. See <a href="/shipping-returns">shipping &amp; returns</a>.</p>
+  </details>
+  <details>
+    <summary>Do you deliver outside Metro Manila?</summary>
+    <p>Message us with your address and we'll let you know the options and timing.</p>
+  </details>
+  <details>
+    <summary>Can you gift wrap?</summary>
+    <p>Yes. Gift wrap and a handwritten note are {peso(site.giftWrapPrice)}. Mention it when you order, with what you'd like the note to say.</p>
+  </details>
+  <details>
+    <summary>What does pre-order mean?</summary>
+    <p>We order the piece in for you. The product page shows how long it takes to arrive, and we'll keep you updated.</p>
+  </details>
+  <details>
+    <summary>Something I want is sold out.</summary>
+    <p>Tap <strong>Notify me on Messenger</strong> on the product and we'll message you when it's back.</p>
+  </details>
+  <details>
+    <summary>Can I return something?</summary>
+    <p>Unopened, unused pieces can be returned within {site.returnDays} days of delivery. Opened candles, incense and diffusers can't be returned. If something arrives damaged, message us within {site.damageReportHours} hours with a photo. See <a href="/shipping-returns">shipping &amp; returns</a>.</p>
+  </details>
+</InfoPage>

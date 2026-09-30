@@ -1,0 +1,131 @@
+---
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/400-italic.css';
+import '@fontsource/jost/400.css';
+import '@fontsource/jost/500.css';
+import '../styles/global.css';
+import serif from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2?url';
+import sans from '@fontsource/jost/files/jost-latin-400-normal.woff2?url';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Loader from '../components/Loader.astro';
+import { site } from '../config';
+
+interface Props { title?: string; description?: string; image?: string; noindex?: boolean; overlayHeader?: boolean }
+const {
+  title,
+  description = 'Luxury home scents and curated dinnerware, delivered same-day in Metro Manila. Objects for slow living.',
+  image = '/og.png',
+  noindex = false,
+  overlayHeader = false,
+} = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} — Luxury Candles & Tableware, Manila`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+<!doctype html>
+<html lang="en-PH">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <link rel="preload" href={serif} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={sans} as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#F3EDE0" />
+
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Loading screen only on the first page of a visit (browser tab session).
+      try { if (sessionStorage.getItem('noma-seen')) document.documentElement.classList.add('no-loader'); sessionStorage.setItem('noma-seen', '1'); } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="motion-blur" x="0" y="0" width="100%" height="100%"><feGaussianBlur id="motion-blur-sd" stdDeviation="0 0" /></filter>
+    </svg>
+    <Loader />
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header overlay={overlayHeader} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Items that come into view together (a row of products) cascade 90ms apart.
+      const io = new IntersectionObserver((entries) => {
+        entries.filter((e) => e.isIntersecting).forEach((e, k) => {
+          const el = e.target as HTMLElement;
+          el.style.setProperty('--delay', `${Math.min(k, 5) * 90}ms`);
+          el.classList.add('is-in');
+          io.unobserve(el);
+        });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+    <script>
+      // Smooth scrolling: wheel and trackpad flicks ease into place instead of jumping. Native scroll position is still
+      // what moves, so the sticky header and scroll-driven effects keep working. Skipped for reduced motion; dialogs and
+      // the menu drawer carry data-lenis-prevent so they scroll natively.
+      import Lenis from 'lenis';
+      import 'lenis/dist/lenis.css';
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const lenis = new Lenis({ lerp: 0.08 }); // lower = floatier
+        // Motion blur: a vertical-only blur on the page (not the header) that grows with scroll speed, up to a cap, and
+        // is removed entirely at rest (a filter makes fixed-position children scroll with the page, so pages that have
+        // any are never blurred).
+        const MAX = 3;                       // px of blur at full speed (lower = cheaper)
+        const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const targets = [document.querySelector<HTMLElement>('main')!, document.querySelector<HTMLElement>('footer')!];
+        const sd = document.getElementById('motion-blur-sd')!;
+        let blur = 0, on = false, blocked: boolean | undefined;
+        const raf = (t: number) => {
+          lenis.raf(t);
+          // Mouse/trackpad devices only: on phones a filter over the whole page flickers and tears while the native scroll runs.
+          const goal = fine ? Math.min(MAX, Math.max(0, (Math.abs(lenis.velocity) - 2) * 0.08)) : 0;
+          blur += (goal - blur) * 0.2;       // ease in and out so the blur never pops
+          if (blur > 0.15 && (blocked ??= [...targets[0].querySelectorAll('*')].some((el) => getComputedStyle(el).position === 'fixed')) === false) {
+            const q = (Math.round(blur * 4) / 4).toFixed(2); // quarter-pixel steps: the filter is only recomputed when this changes
+            if (sd.getAttribute('stdDeviation') !== `0 ${q}`) sd.setAttribute('stdDeviation', `0 ${q}`);
+            if (!on) { targets.forEach((el) => (el.style.filter = 'url(#motion-blur)')); on = true; }
+          } else if (on && blur <= 0.15) {
+            targets.forEach((el) => (el.style.filter = ''));
+            on = false;
+          }
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+      }
+    </script>
+    <script>
+      // Background videos: phones can refuse autoplay (Low Power Mode, data saver) and show a play button instead.
+      // Try again on the first touch or scroll; if it still won't play, hide the video so the photo underneath shows.
+      const videos = [...document.querySelectorAll<HTMLVideoElement>('video[autoplay]')];
+      const start = () => videos.forEach((v) => v.play().catch(() => {}));
+      for (const v of videos) {
+        v.play().catch(() => { v.style.visibility = 'hidden'; });
+        v.addEventListener('playing', () => { v.style.visibility = ''; });
+      }
+      for (const ev of ['touchstart', 'pointerdown', 'scroll'] as const) addEventListener(ev, start, { once: true, passive: true });
+    </script>
+  </body>
+</html>

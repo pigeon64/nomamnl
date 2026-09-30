@@ -1,0 +1,27 @@
+---
+// Messenger (primary) and Instagram (secondary) order actions. Also used by the mobile sticky bar (compact).
+import Icon from './Icon.astro';
+import { links } from '../config';
+import { orderMessage, messengerHref, type Product } from '../lib/products';
+interface Props { product: Product; compact?: boolean }
+const { product: p, compact = false } = Astro.props;
+const variant = p.variants?.[0]?.name; // the product page swaps these links when another scent is picked
+const soldOut = p.status === 'sold_out';
+const verb = soldOut ? 'Notify me' : p.status === 'pre_order' ? 'Pre-order' : 'Order';
+const label = `${verb} on Messenger`;
+---
+<div class:list={['order', { 'order--compact': compact }]}>
+  <a class="btn btn--block" href={messengerHref(p, variant)} target="_blank" rel="noopener" data-order="messenger" aria-label={compact ? label : undefined}>
+    <Icon name="messenger" size={18} /> {compact ? verb : label}
+  </a>
+  {!soldOut && !compact && (
+    <a class="link order__ig" href={links.instagramDm} target="_blank" rel="noopener" data-order="instagram" data-message={orderMessage(p, variant)}>
+      <Icon name="instagram" size={16} /> Order on Instagram
+    </a>
+  )}
+</div>
+
+<style>
+  .order { display: grid; gap: 20px; justify-items: center; }
+  .order__ig { display: inline-flex; align-items: center; gap: 8px; }
+</style>

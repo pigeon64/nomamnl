@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import TileGrid from '../../components/TileGrid.astro';
+import { findImage } from '../../lib/images';
+import { products, typeLabel, breadcrumbLd } from '../../lib/products';
+
+// One tile per product type that has dinnerware, most pieces first. Photo (optional): public/images/categories/<type>.(jpg|png|webp), portrait 4:5.
+const items = products.filter((p) => p.category === 'dinnerware');
+const tiles = [...new Set(items.map((p) => p.type))]
+  .map((type) => ({ href: `/dinnerware?type=${type}`, name: typeLabel(type), alt: typeLabel(type),
+    img: findImage(`/images/categories/${type}`), count: items.filter((p) => p.type === type).length }))
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+---
+<Base overlayHeader title="Shop Dinnerware by Category"
+  description="Glassware, teaware, mugs and cutlery at Nomà. Authentic, gift-wrapped on request and delivered same-day in Metro Manila.">
+  <script type="application/ld+json" slot="head" set:html={breadcrumbLd([['Home', '/'], ['Dinnerware', '/dinnerware'], ['Shop by category', '/dinnerware/categories']])} />
+  <Hero image="dinnerware" title="Shop by category" intro="Glass, tea and table pieces for every occasion." crumbs={[['Shop', '/#collections'], ['Dinnerware', '/dinnerware']]} />
+  <div class="container">
+    <TileGrid tiles={tiles} />
+    <p class="next">Looking for a particular house? <a class="link" href="/dinnerware/brands">Shop by brand →</a></p>
+  </div>
+</Base>
+
+<style>
+  .next { text-align: center; margin: clamp(48px, 6vw, 80px) auto 0; max-width: none; }
+  .next .link { margin-left: 6px; }
+</style>

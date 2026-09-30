@@ -1,0 +1,39 @@
+---
+import Img from './Img.astro';
+import Icon from './Icon.astro';
+import { categories } from '../config';
+interface Props { priority?: boolean }
+const { priority = false } = Astro.props;
+---
+<ul class="squares" style={`--n:${categories.length}`}>
+  {categories.map((c) => (
+    <li>
+      <a class="square zoom" href={c.href}>
+        <Img src={c.image} alt={c.alt} width={1600} height={1600} priority={priority}
+          sizes={`(min-width: 768px) ${Math.round(100 / categories.length)}vw, 100vw`} />
+        <span class="square__text">
+          <span class="square__label">{c.label}</span>
+          <span class="square__cta label">Explore <Icon name="arrow" size={14} /></span>
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .squares { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  /* Tablet and up: one row, as many equal columns as there are categories (2 now, 3 with Body) */
+  @media (min-width: 768px) { .squares { grid-template-columns: repeat(var(--n), 1fr); gap: 20px; } }
+  @media (min-width: 1200px) { .squares { gap: 24px; } }
+
+  .square { position: relative; display: block; aspect-ratio: 1; color: var(--cream); text-decoration: none; background: var(--limestone); }
+  .square :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  /* Soft forest scrim at the bottom so the cream label clears AA on any photo */
+  .square::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(to top, rgb(30 61 50 / 0.72), rgb(30 61 50 / 0)); pointer-events: none; }
+  .square__text { position: absolute; left: clamp(20px, 3vw, 40px); bottom: clamp(20px, 3vw, 40px); z-index: 1; display: grid; gap: 8px; }
+  .square__label { font: 400 clamp(40px, 4vw, 56px)/1 var(--serif); }
+  .square__cta { display: inline-flex; align-items: center; gap: 8px; }
+  .square__cta :global(svg) { transition: transform 500ms var(--ease); }
+  .square:hover .square__cta :global(svg) { transform: translateX(4px); }
+  .square:focus-visible { outline-offset: 4px; }
+</style>

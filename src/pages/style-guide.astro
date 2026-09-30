@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+const colors = [
+  { token: '--cream', hex: '#F3EDE0', use: 'Page background' },
+  { token: '--limestone', hex: '#E6DCCB', use: 'Section blocks, cards, placeholders' },
+  { token: '--forest', hex: '#1E3D32', use: 'Logo, headings, text, buttons, footer', dark: true },
+  { token: '--gold', hex: '#B99A5B', use: 'Rules, icons, hover underlines — never text on cream' },
+  { token: '--ink', hex: '#1A1A1A', use: 'Long legal text (optional)', dark: true },
+];
+---
+<Base title="Style guide" noindex>
+  <div class="container sg">
+    <header class="section sg__intro">
+      <p class="label">Design system · Phase 1</p>
+      <h1>Style guide</h1>
+      <p>Tokens, type, buttons and marks for Nomà. Everything on the site draws from this page.</p>
+    </header>
+
+    <section class="sg__block">
+      <h2>Logo</h2>
+      <div class="sg__logos">
+        <figure class="logo-tile"><img src="/brand/logo.svg" alt="Nomà logo, forest on cream" /><figcaption class="label">Primary · logo.svg</figcaption></figure>
+        <figure class="logo-tile logo-tile--forest on-forest"><img src="/brand/logo-cream.svg" alt="Nomà logo, cream on forest" /><figcaption class="label">Footer · logo-cream.svg</figcaption></figure>
+        <figure class="logo-tile logo-tile--icon">
+          <div class="icons">
+            <img src="/icon-512.png" alt="Nomà app icon: the candle O" width="128" height="128" />
+            <img src="/apple-touch-icon.png" alt="" width="60" height="60" />
+            <img src="/favicon-32.png" alt="" width="32" height="32" />
+            <img src="/favicon-16.png" alt="" width="16" height="16" />
+          </div>
+          <figcaption class="label">Favicon · 512 / 180 / 32 / 16</figcaption>
+        </figure>
+      </div>
+      <figure class="og"><img src="/og.png" alt="Social preview: Nomà logo with the line Objects for slow living" width="1200" height="630" loading="lazy" /><figcaption class="label">Social preview · og.png · 1200×630</figcaption></figure>
+    </section>
+
+    <section class="sg__block">
+      <h2>Colour</h2>
+      <ul class="swatches">
+        {colors.map((c) => (
+          <li>
+            <span class="swatch" style={`background:${c.hex}`}></span>
+            <strong>{c.token}</strong> <span class="label">{c.hex}</span>
+            <p>{c.use}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="note">Contrast: forest on cream 10.2:1 (AA/AAA) · gold on cream 2.3:1 (decoration only) · gold on forest 4.4:1 (large text only).</p>
+    </section>
+
+    <section class="sg__block">
+      <h2>Type</h2>
+      <div class="type">
+        <p class="label">Display · Cormorant Garamond 400 · 48–72px</p>
+        <p class="display">Objects for slow living.</p>
+        <p class="label">H2 · Cormorant Garamond 400 · 34–48px</p>
+        <p class="h2">The Edit — this month</p>
+        <p class="label">H3 · Cormorant Garamond 500 · 24–30px</p>
+        <p class="h3">Gifts, wrapped by hand.</p>
+        <p class="label">Label · Jost 400 · 12–13px · uppercase · 0.15em</p>
+        <p class="label">Scents · Dinnerware · About</p>
+        <p class="label">Body · Jost 400 · 15–16px / 1.6</p>
+        <p>Nomà gathers candles, diffusers and tableware chosen for the quiet parts of the day — the long lunch, the late bath, the table set for no particular reason. Everything we carry is authentic and delivered by hand across Metro Manila. ₱3,500</p>
+      </div>
+    </section>
+
+    <section class="sg__block">
+      <h2>Buttons &amp; links</h2>
+      <div class="row">
+        <a class="btn" href="#">Order on Messenger</a>
+        <a class="btn btn--outline" href="#">Discover</a>
+        <a class="link" href="#">Order on Instagram</a>
+        <a class="link" href="#">Explore <Icon name="arrow" size={14} /></a>
+      </div>
+      <div class="row row--forest on-forest">
+        <a class="btn" href="#">Subscribe</a>
+        <a class="btn btn--outline" href="#">Shop gifts</a>
+        <a class="link" href="#">Our story</a>
+      </div>
+      <div class="row">
+        <Icon name="messenger" /> <Icon name="instagram" /> <Icon name="facebook" /> <Icon name="menu" /> <Icon name="arrow" />
+      </div>
+    </section>
+
+    <section class="sg__block">
+      <h2>Surfaces &amp; motion</h2>
+      <div class="surfaces">
+        <div class="surface zoom reveal"><div class="ph"></div><p class="label">Limestone card · hover zoom 1.03×</p></div>
+        <div class="surface reveal"><hr class="rule" /><p class="label">Gold hairline rule</p></div>
+      </div>
+      <p class="note">Fades: 500ms on scroll. Disabled under prefers-reduced-motion.</p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .sg__intro { padding-bottom: 48px; }
+  .sg__block { padding-block: 56px; border-top: 1px solid var(--limestone); }
+  .sg__logos { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  .logo-tile { margin: 0; background: var(--cream); border: 1px solid var(--limestone); padding: 48px 32px 20px; display: grid; gap: 32px; justify-items: center; }
+  .logo-tile > img { width: min(100%, 280px); }
+  .logo-tile--forest { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+  .icons { display: flex; align-items: end; gap: 20px; }
+  .icons img { border: 1px solid var(--limestone); }
+  .og { margin: 16px 0 0; display: grid; gap: 12px; }
+  .og img { border: 1px solid var(--limestone); }
+  .swatches { list-style: none; padding: 0; margin: 0; display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .swatch { display: block; aspect-ratio: 4 / 3; border: 1px solid var(--limestone); margin-bottom: 12px; }
+  .swatches p { font-size: 14px; margin-top: 4px; }
+  .note { font-size: 14px; margin-top: 24px; }
+  .type > .label { margin: 32px 0 8px; opacity: 0.8; }
+  .type > .label:first-child { margin-top: 0; }
+  .h2 { font: 400 clamp(34px, 4vw, 48px)/1.1 var(--serif); margin: 0; }
+  .h3 { font: 500 clamp(24px, 2.4vw, 30px)/1.1 var(--serif); margin: 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; padding: 24px 0; }
+  .row--forest { background: var(--forest); color: var(--cream); padding: 32px; }
+  .row .link { display: inline-flex; gap: 8px; align-items: center; }
+  .surfaces { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  .surface { background: var(--limestone); padding: 24px; }
+  .ph { aspect-ratio: 16 / 9; background: linear-gradient(135deg, #e0d4bf, #d8cab1); margin-bottom: 16px; transition: transform 600ms var(--ease); }
+  .zoom:hover .ph { transform: scale(1.03); }
+  @media (min-width: 900px) {
+    .sg__logos { grid-template-columns: 1fr 1fr 1fr; }
+    .surfaces { grid-template-columns: 1fr 1fr; }
+  }
+</style>

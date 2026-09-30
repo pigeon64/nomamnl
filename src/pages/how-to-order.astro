@@ -1,0 +1,30 @@
+---
+import InfoPage from '../components/InfoPage.astro';
+import { site, links, peso } from '../config';
+---
+<InfoPage title="How to order" intro="We take orders by message, so a real person confirms every piece before it leaves our hands."
+  description={`How to order from ${site.name}: message us on Messenger or Instagram, pay by GCash, card or COD, and get same-day delivery in Metro Manila.`}>
+  <h2>1. Choose your piece</h2>
+  <p>Open any product and tap <strong>Order on Messenger</strong>. For scents that come in several options, pick yours first; the message will name it.</p>
+
+  <h2>2. Send the message</h2>
+  <p>Messenger opens with your order already written: the piece, the price and a link. Just press send.</p>
+  <p>Prefer Instagram? Tap <strong>Order on Instagram</strong>. Instagram can't fill in a message for you, so we copy it for you: paste it in the chat and send.</p>
+
+  <h2>3. We confirm</h2>
+  <p>We reply to confirm the piece is ready, your delivery address and time, and the total with delivery.</p>
+
+  <h2>4. Pay</h2>
+  <p>GCash, card or cash on delivery, whichever suits you.</p>
+
+  <h2>5. Delivered</h2>
+  <p>In-stock pieces go out the same day across Metro Manila. Pre-orders show their shipping time on the product page, and we'll keep you posted.</p>
+
+  <h2>Gifting</h2>
+  <p>Gift wrap and a handwritten note are {peso(site.giftWrapPrice)}. Mention it in your message with what you'd like the note to say.</p>
+
+  <h2>Sold out?</h2>
+  <p>Tap <strong>Notify me on Messenger</strong> on the product and we'll message you when it's back.</p>
+
+  <a class="btn" href={links.messenger} target="_blank" rel="noopener">Message us on Messenger</a>
+</InfoPage>

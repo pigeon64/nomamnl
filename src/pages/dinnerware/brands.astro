@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import TileGrid from '../../components/TileGrid.astro';
+import { findImage } from '../../lib/images';
+import { products, slugify, breadcrumbLd } from '../../lib/products';
+
+// Every brand with dinnerware gets a tile, most pieces first. Photo (optional): public/images/brands/<slug>.(jpg|png|webp), portrait 4:5.
+const items = products.filter((p) => p.category === 'dinnerware');
+const tiles = [...new Set(items.map((p) => p.brand))]
+  .map((name) => {
+    const slug = slugify(name);
+    return { href: `/dinnerware?brand=${slug}`, name, alt: name, img: findImage(`/images/brands/${slug}`),
+      count: items.filter((p) => slugify(p.brand) === slug).length };
+  })
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+---
+<Base overlayHeader title="Shop Dinnerware by Brand"
+  description="Shop Wedgwood glassware, tea sets and table pieces at Nomà. Authentic, gift-wrapped on request and delivered same-day in Metro Manila.">
+  <script type="application/ld+json" slot="head" set:html={breadcrumbLd([['Home', '/'], ['Dinnerware', '/dinnerware'], ['Shop by brand', '/dinnerware/brands']])} />
+  <Hero image="dinnerware" title="Shop by brand" intro="The houses we carry for the table." crumbs={[['Shop', '/#collections'], ['Dinnerware', '/dinnerware']]} />
+  <div class="container">
+    <TileGrid tiles={tiles} />
+    <p class="next">Prefer to browse by piece? <a class="link" href="/dinnerware/categories">Shop by category →</a></p>
+  </div>
+</Base>
+
+<style>
+  .next { text-align: center; margin: clamp(48px, 6vw, 80px) auto 0; max-width: none; }
+  .next .link { margin-left: 6px; }
+</style>

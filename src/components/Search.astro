@@ -1,0 +1,185 @@
+---
+// Header search. The whole catalogue is small, so its index is inlined and filtered as you type: every word must
+// match somewhere in the brand, name, type, size, description, notes, scent options or scent family (including the family's mood words, so
+// "vanilla" finds Sweet candles even before their notes are filled in). Accents and case are ignored.
+import { products, priceLabel, thumbOf } from '../lib/products';
+import { notes } from '../data/notes';
+import Icon from './Icon.astro';
+
+const index = products.map((p) => {
+  const family = notes.find((n) => n.slug === p.scentFamily);
+  const img = thumbOf(p) ?? p.images[0];
+  return {
+    url: `/products/${p.slug}`,
+    brand: p.brand,
+    name: p.name,
+    size: p.size,
+    price: priceLabel(p),
+    img: img ? img.replace(/^\/images\//, '/_img/').replace(/\.\w+$/, '-400.webp') : '',
+    // Brand and name first so they rank above note-only matches.
+    primary: `${p.brand} ${p.name}`,
+    rest: [p.type, p.size, p.notes.top, p.notes.heart, p.notes.base, family?.name, family?.mood, p.details,
+      ...(p.variants ?? []).flatMap((v) => [v.name, v.details, v.notes.top, v.notes.heart, v.notes.base])].filter(Boolean).join(' '),
+  };
+});
+---
+<button type="button" class="search-toggle" aria-haspopup="dialog" data-search-open>
+  <Icon name="search" size={18} /><span class="search-toggle__label">Search</span>
+</button>
+
+<dialog class="search" aria-label="Search products" data-search data-lenis-prevent>
+  <form class="search__bar container" method="dialog" data-search-form>
+    <Icon name="search" size={20} />
+    <input class="search__input" type="search" name="q" placeholder="Brand, product or note, like vanilla" autocomplete="off" aria-label="Search products" data-search-input />
+    <button type="button" class="search__close" aria-label="Close search" data-search-close><Icon name="close" size={20} /></button>
+  </form>
+  <div class="search__body container">
+    <p class="search__status label" aria-live="polite" data-search-status></p>
+    <ul class="search__results" data-search-results></ul>
+  </div>
+</dialog>
+
+<script type="application/json" id="search-index" set:html={JSON.stringify(index)} />
+
+<script>
+  type Entry = { url: string; brand: string; name: string; size: string; price: string; img: string; primary: string; rest: string };
+  const dialog = document.querySelector<HTMLDialogElement>('[data-search]')!;
+  const input = dialog.querySelector<HTMLInputElement>('[data-search-input]')!;
+  const list = dialog.querySelector<HTMLUListElement>('[data-search-results]')!;
+  const status = dialog.querySelector<HTMLElement>('[data-search-status]')!;
+  const fold = (s: string) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+  const entries = (JSON.parse(document.getElementById('search-index')!.textContent!) as Entry[])
+    .map((e) => ({ ...e, p: fold(e.primary), r: fold(e.rest) }));
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => `&${({ '&': 'amp', '<': 'lt', '>': 'gt', '"': 'quot' })[c]};`);
+
+  const rows = new Map<string, HTMLLIElement>();
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+  const ease = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
+  let seq = 0;
+  let hits: typeof entries = [];
+  const render = () => {
+    const words = fold(input.value).split(/\s+/).filter(Boolean);
+    hits = !words.length ? [] : entries
+      .filter((e) => words.every((w) => e.p.includes(w) || e.r.includes(w)))
+      .map((e) => ({ e, score: words.filter((w) => e.p.includes(w)).length }))
+      .sort((a, b) => b.score - a.score)
+      .map((x) => x.e);
+    status.textContent = !words.length ? '' : hits.length ? `${hits.length} ${hits.length === 1 ? 'piece' : 'pieces'}` : 'Nothing found. Try a brand, or a note like cedar.';
+    ++seq;
+    for (const t of [dialog, list]) t.getAnimations().forEach((a) => a.cancel());
+    dialog.style.overflow = '';
+    // No results left: the rows fade while the sheet retracts to its new height, then the rows are dropped.
+    if (!hits.length && rows.size && !calm.matches) {
+      const id = seq, h0 = dialog.offsetHeight;
+      list.style.display = 'none'; const h1 = dialog.offsetHeight; list.style.display = ''; // height once the rows are gone
+      dialog.style.overflow = 'hidden';
+      list.animate({ opacity: [1, 0] }, { duration: 200, fill: 'forwards' });
+      dialog.animate({ height: [`${h0}px`, `${h1}px`] }, { duration: 400, easing: ease }).finished.then(() => {
+        if (id !== seq) return; // typing resumed
+        for (const li of rows.values()) li.remove();
+        rows.clear();
+        list.getAnimations().forEach((a) => a.cancel());
+        dialog.style.overflow = '';
+      }).catch(() => {});
+      return;
+    }
+    // Rows are kept between keystrokes (keyed by url): survivors glide to their new spot, new ones fade up, the rest go.
+    const keep = new Set(hits.map((e) => e.url));
+    const before = new Map([...rows].filter(([u]) => keep.has(u)).map(([u, li]) => [u, li.getBoundingClientRect()]));
+    for (const [u, li] of rows) if (!keep.has(u)) { li.remove(); rows.delete(u); }
+    for (const e of hits) if (!rows.has(e.url)) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="search__hit" href="${e.url}">
+      <span class="search__thumb">${e.img ? `<img src="${e.img}" alt="" loading="lazy" decoding="async" width="400" height="500">` : ''}</span>
+      <span><span class="search__brand label">${esc(e.brand)}</span><span class="search__name">${esc(e.name)}${e.size ? ` · ${esc(e.size)}` : ''}</span><span class="search__price">${esc(e.price)}</span></span>
+    </a>`;
+      rows.set(e.url, li);
+    }
+    list.append(...hits.map((e) => rows.get(e.url)!));
+    if (calm.matches) return;
+    for (const [u, li] of rows) {
+      const from = before.get(u), to = li.getBoundingClientRect();
+      if (!from) li.animate({ opacity: [0, 1], transform: ['translateY(10px)', 'none'] }, { duration: 350, easing: ease });
+      else if (from.left !== to.left || from.top !== to.top) li.animate({ transform: [`translate(${from.left - to.left}px, ${from.top - to.top}px)`, 'none'] }, { duration: 400, easing: ease });
+    }
+  };
+
+  input.addEventListener('input', render);
+  // Enter opens the top result.
+  dialog.querySelector('[data-search-form]')!.addEventListener('submit', (e) => { e.preventDefault(); if (hits[0]) location.href = hits[0].url; });
+  document.querySelector('[data-search-open]')!.addEventListener('click', () => { dialog.showModal(); input.select(); });
+  // Closing: the sheet lifts and fades and the backdrop dims out, then the dialog really closes.
+  let closing = false;
+  const close = () => {
+    if (!dialog.open || closing) return;
+    if (calm.matches) return dialog.close();
+    closing = true;
+    const opt = { duration: 280, easing: 'cubic-bezier(0.4, 0, 0.6, 1)', fill: 'forwards' as const };
+    dialog.animate({ opacity: [1, 0], transform: ['none', 'translateY(-16px)'] }, opt);
+    dialog.animate({ opacity: [1, 0] }, { ...opt, pseudoElement: '::backdrop' }).finished.then(() => {
+      dialog.close();
+      dialog.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      closing = false;
+    });
+  };
+  dialog.querySelector('[data-search-close]')!.addEventListener('click', close);
+  dialog.addEventListener('click', (e) => { if (e.target === dialog) close(); }); // click on the backdrop
+  dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); }); // Escape
+  // "/" opens search from anywhere, unless you're typing in a field.
+  addEventListener('keydown', (e) => {
+    if (e.key !== '/' || dialog.open || (e.target as HTMLElement).closest('input, textarea, select, [contenteditable]')) return;
+    e.preventDefault(); dialog.showModal(); input.select();
+  });
+</script>
+
+<style>
+  .search-toggle {
+    display: inline-flex; align-items: center; gap: 8px; min-width: 44px; height: 44px; justify-content: center;
+    background: none; border: 0; padding: 0; cursor: pointer; color: inherit; transition: color 400ms var(--ease);
+  }
+  .search-toggle:hover { color: color-mix(in srgb, var(--forest) 80%, white); }
+  :global(.header .search-toggle:hover) { color: var(--gold); } /* dark bar */
+  .search-toggle :global(svg) { transition: transform 300ms var(--ease); }
+  .search-toggle:hover :global(svg) { transform: scale(1.2); }
+  .search-toggle__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (min-width: 1024px) {
+    .search-toggle { min-width: 0; margin-right: 32px; }
+    .search-toggle__label { position: static; width: auto; height: auto; overflow: visible; clip: auto; font: 400 12px/1.4 var(--sans); padding-block: 2px; text-transform: uppercase; letter-spacing: 0.15em; transition: transform 300ms var(--ease); }
+    .search-toggle:hover .search-toggle__label { transform: scale(1.1); }
+  }
+
+  /* A cream sheet dropping from the top of the page */
+  .search {
+    margin: 0; inset: 0 0 auto; width: 100%; max-width: none; max-height: min(80dvh, 720px);
+    border: 0; padding: 0; background: var(--cream); color: var(--forest); overflow: auto;
+  }
+  .search::backdrop { background: rgb(30 61 50 / 0.35); }
+  .search[open] { animation: search-in 400ms var(--ease-out); }
+  @keyframes search-in { from { opacity: 0; transform: translateY(-16px); } }
+  .search__bar {
+    position: sticky; top: 0; z-index: 1; display: flex; align-items: center; gap: 12px;
+    background: var(--cream); border-bottom: 1px solid var(--limestone); min-height: 72px;
+  }
+  .search__input {
+    flex: 1; min-width: 0; border: 0; background: none; padding: 12px 0; outline: none;
+    font: 400 clamp(22px, 2.4vw, 30px)/1.2 var(--serif);
+  }
+  .search__input::placeholder { color: var(--forest); opacity: 0.45; }
+  .search__input::-webkit-search-cancel-button { display: none; }
+  .search__close { display: grid; place-items: center; width: 44px; height: 44px; margin-right: -12px; background: none; border: 0; cursor: pointer; color: inherit; }
+  .search__close:hover { color: var(--gold); }
+  .search__body { padding-block: 16px 32px; }
+  .search__status { margin: 0 0 12px; font-size: 11px; min-height: 1em; }
+  .search__results { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px 32px; }
+  @media (min-width: 768px) { .search__results { grid-template-columns: 1fr 1fr; } }
+  /* Result rows are built by the script, so they miss Astro's scoping attribute: style them via :global inside the list. */
+  .search__results :global(.search__hit) { display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: center; padding: 8px 0; text-decoration: none; }
+  .search__results :global(.search__thumb) { aspect-ratio: 4 / 5; background: var(--limestone); overflow: hidden; }
+  .search__results :global(.search__thumb img) { width: 100%; height: 100%; object-fit: cover; }
+  .search__results :global(.search__brand) { display: block; font-size: 11px; margin-bottom: 2px; }
+  .search__results :global(.search__name) { display: block; font: 400 20px/1.25 var(--serif); }
+  .search__results :global(.search__price) { display: block; font-size: 13px; margin-top: 2px; }
+  .search__results :global(.search__hit:hover .search__name), .search__results :global(.search__hit:focus-visible .search__name) {
+    text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 4px;
+  }
+</style>

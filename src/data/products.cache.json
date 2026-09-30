@@ -1,0 +1,249 @@
+{
+  "fetchedAt": "2026-09-30T03:38:34.037Z",
+  "columns": [
+    "slug",
+    "brand",
+    "name",
+    "size",
+    "price",
+    "status",
+    "preorder_lead_time",
+    "notes_top",
+    "notes_heart",
+    "notes_base"
+  ],
+  "overrides": {
+    "diptyque-scented-candle-190g": {
+      "brand": "Diptyque",
+      "name": "Scented Candle",
+      "size": "190g",
+      "price": 4700,
+      "status": "in_stock"
+    },
+    "loewe-scented-candle-170g": {
+      "brand": "Loewe",
+      "name": "Scented Candle",
+      "size": "170g",
+      "price": 5600,
+      "status": "in_stock"
+    },
+    "aesop-incense": {
+      "brand": "Aesop",
+      "name": "Incense",
+      "price": 2200,
+      "status": "in_stock"
+    },
+    "le-labo-scented-candle-200g": {
+      "brand": "Le Labo",
+      "name": "Scented Candle",
+      "size": "200g",
+      "price": 6000,
+      "status": "in_stock"
+    },
+    "lancome-absolue-scented-candle-180g": {
+      "brand": "Lancôme",
+      "name": "Absolue Scented Candle",
+      "size": "180g",
+      "price": 7200,
+      "status": "in_stock"
+    },
+    "burberry-goddess-scented-candle-70g": {
+      "brand": "Burberry",
+      "name": "Goddess Scented Candle",
+      "size": "70g",
+      "price": 3200,
+      "status": "in_stock"
+    },
+    "armani-prive-the-yulong-scented-candle-70g": {
+      "brand": "Armani Privé",
+      "name": "The Yulong Scented Candle",
+      "size": "70g",
+      "price": 3700,
+      "status": "in_stock"
+    },
+    "givenchy-accord-particulier-scented-candle-70g": {
+      "brand": "Givenchy",
+      "name": "Accord Particulier Scented Candle",
+      "size": "70g",
+      "price": 3700,
+      "status": "in_stock"
+    },
+    "loro-piana-incense": {
+      "brand": "Loro Piana",
+      "name": "Incense",
+      "price": 5600,
+      "status": "in_stock"
+    },
+    "diptyque-hourglass-fragrance-diffuser": {
+      "brand": "Diptyque",
+      "name": "Hourglass Fragrance Diffuser",
+      "price": 5700,
+      "status": "in_stock"
+    },
+    "miu-miu-scented-candle-small": {
+      "brand": "Miu Miu",
+      "name": "Scented Candle, Small",
+      "price": 22000,
+      "status": "in_stock"
+    },
+    "loewe-scented-candle-set-of-3-55g": {
+      "brand": "Loewe",
+      "name": "Scented Candle Set",
+      "size": "3 × 55g",
+      "price": 6500,
+      "status": "in_stock"
+    },
+    "diptyque-scented-candle-1500g": {
+      "brand": "Diptyque",
+      "name": "Scented Candle",
+      "size": "1500g",
+      "price": 24500,
+      "status": "in_stock"
+    },
+    "byredo-scented-candle-70g": {
+      "brand": "Byredo",
+      "name": "Scented Candle",
+      "size": "70g",
+      "price": 2800,
+      "status": "in_stock"
+    },
+    "diptyque-scented-candle-set-of-3-70g": {
+      "brand": "Diptyque",
+      "name": "Scented Candle Set",
+      "size": "3 × 70g",
+      "price": 6400,
+      "status": "in_stock"
+    },
+    "byredo-incense": {
+      "brand": "Byredo",
+      "name": "Incense",
+      "price": 2800,
+      "status": "in_stock"
+    },
+    "acca-kappa-scented-candle-180g": {
+      "brand": "Acca Kappa",
+      "name": "Scented Candle",
+      "size": "180g",
+      "price": 2400,
+      "status": "in_stock"
+    },
+    "cote-noire-scented-candle-75g": {
+      "brand": "Côte Noire",
+      "name": "Scented Candle",
+      "size": "75g",
+      "price": 2500,
+      "status": "in_stock"
+    },
+    "cote-noire-scented-candle-185g": {
+      "brand": "Côte Noire",
+      "name": "Scented Candle",
+      "size": "185g",
+      "price": 3900,
+      "status": "in_stock"
+    },
+    "laundrin-scented-candle-130g": {
+      "brand": "Laundrin'",
+      "name": "Scented Candle",
+      "size": "130g",
+      "price": 1900,
+      "status": "in_stock"
+    },
+    "lancome-absolue-x-louvre-scented-candle-180g": {
+      "brand": "Lancôme",
+      "name": "Absolue × Louvre Scented Candle",
+      "size": "180g",
+      "price": 5500,
+      "status": "in_stock"
+    },
+    "clarins-precious-scented-candle-75g": {
+      "brand": "Clarins",
+      "name": "Precious Scented Candle",
+      "size": "75g",
+      "price": 2600,
+      "status": "in_stock"
+    },
+    "wedgwood-x-vera-wang-love-knot-champagne-flutes": {
+      "brand": "Wedgwood × Vera Wang",
+      "name": "Love Knot Champagne Flutes",
+      "price": 4700,
+      "status": "in_stock"
+    },
+    "wedgwood-x-vera-wang-love-together-champagne-flutes": {
+      "brand": "Wedgwood × Vera Wang",
+      "name": "Love Together Champagne Flutes",
+      "price": 4300,
+      "status": "in_stock"
+    },
+    "wedgwood-intaglio-mug-set": {
+      "brand": "Wedgwood",
+      "name": "Intaglio Mug Set",
+      "price": 4800,
+      "status": "in_stock"
+    },
+    "wedgwood-gio-mug-set": {
+      "brand": "Wedgwood",
+      "name": "Gio Mug Set",
+      "price": 4800,
+      "status": "in_stock"
+    },
+    "wedgwood-butterfly-bloom-teacup-set": {
+      "brand": "Wedgwood",
+      "name": "Butterfly Bloom Teacup Set",
+      "price": 3800,
+      "status": "in_stock"
+    },
+    "wedgwood-renaissance-tea-set": {
+      "brand": "Wedgwood",
+      "name": "Renaissance Tea Set",
+      "price": 14000,
+      "status": "in_stock"
+    },
+    "wedgwood-renaissance-mug-set": {
+      "brand": "Wedgwood",
+      "name": "Renaissance Mug Set",
+      "price": 4500,
+      "status": "in_stock"
+    },
+    "wedgwood-wild-strawberry-chopstick-set": {
+      "brand": "Wedgwood",
+      "name": "Wild Strawberry Chopstick Set",
+      "price": 2400,
+      "status": "in_stock"
+    },
+    "clarins-eau-dynamisante-35g": {
+      "brand": "Clarins",
+      "name": "Eau Dynamisante",
+      "size": "35g",
+      "price": 1300,
+      "status": "in_stock"
+    },
+    "woodwick-ellipse-453g": {
+      "brand": "WoodWick",
+      "name": "Ellipse",
+      "size": "453g",
+      "price": 2400,
+      "status": "in_stock"
+    },
+    "moumou-100g": {
+      "brand": "MouMou",
+      "name": "Scented Candle",
+      "size": "100g",
+      "price": 1400,
+      "status": "in_stock"
+    },
+    "replica-165g": {
+      "brand": "Maison Margiela",
+      "name": "Replica Scented Candle",
+      "size": "165g",
+      "price": 4300,
+      "status": "in_stock"
+    },
+    "acqua-di-parma-200g": {
+      "brand": "Acqua Di Parma",
+      "name": "Scented Candle",
+      "size": "200g",
+      "price": 6000,
+      "status": "in_stock"
+    }
+  }
+}

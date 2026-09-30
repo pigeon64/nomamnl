@@ -1,0 +1,346 @@
+---
+import Base from '../../layouts/Base.astro';
+import Img from '../../components/Img.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import OrderButtons from '../../components/OrderButtons.astro';
+import { categories, site, peso } from '../../config';
+import { products, priceLabel, fullName, statusLabel, related, orderMessage, messengerHref, productLd, breadcrumbLd, slugify, thumbOf, type Product } from '../../lib/products';
+import { findImages } from '../../lib/images';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as { p: Product };
+const cat = categories.find((c) => c.slug === p.category);
+// One block (description + notes) per scent option, or just the product's own notes; only the picked one shows.
+const scents: { name?: string; details?: string; notes: Product['notes'] }[] =
+  p.variants?.length ? p.variants : p.category === 'scents' ? [{ notes: p.notes }] : [];
+// Scent photos by convention: public/images/products/<slug>/<scent-slug>/1.jpg, 2.jpg … (e.g. …/figuier/).
+// A scent without its own folder shows the product's main photos. galleryOf(i) = which gallery scent i shows.
+const variantImages = (p.variants ?? []).map((v) => findImages(`/images/products/${p.slug}/${slugify(v.name)}`));
+const galleries = [{ key: 'main', images: p.images }, ...variantImages.flatMap((images, i) => images.length ? [{ key: String(i), images }] : [])];
+const galleryOf = (i: number) => (variantImages[i]?.length ? String(i) : 'main');
+const firstGallery = p.variants?.length ? galleryOf(0) : 'main';
+const specs = [['Size', p.size], ['Burn time', p.burnTime]].filter(([, v]) => v);
+const cartImg = (thumbOf(p) ?? p.images[0])?.replace(/^\/images\//, '/_img/').replace(/\.\w+$/, '-400.webp') ?? '';
+// JPG on cream made by scripts/images.mjs: share previews can't be relied on to show transparency or WebP.
+const og = p.images[0].replace(/^\/images\//, '/_img/').replace(/\.\w+$/, '-og.jpg');
+const description = `${fullName(p)}${p.price ? `, ${peso(p.price)}` : ''}. Authentic, gift-wrapped on request and delivered same-day in Metro Manila by ${site.name}.`;
+---
+<Base title={fullName(p)} description={description} image={og}>
+  <script type="application/ld+json" slot="head" set:html={productLd(p, description)} />
+  <script type="application/ld+json" slot="head" set:html={breadcrumbLd([['Home', '/'], ...(cat ? [[cat.label, cat.href] as [string, string]] : []), [p.name, `/products/${p.slug}`]])} />
+  <div class="container pdp">
+    <nav class="crumbs label" aria-label="Breadcrumb">
+      <a href="/#collections">Shop</a> <span aria-hidden="true">/</span>
+      {cat && <><a href={cat.href}>{cat.label}</a> <span aria-hidden="true">/</span></>}
+      <span aria-current="page">{p.name}</span>
+    </nav>
+
+    <div class="pdp__grid">
+      {galleries.map(({ key, images }) => {
+        const scent = key === 'main' ? '' : ` in ${p.variants![+key].name}`;
+        const shown = key === firstGallery;
+        return (
+          <section class="gallery" aria-label="Product photos" data-gallery={key} hidden={!shown}>
+            <div class="gallery__track" data-track tabindex="0">
+              {images.map((src, i) => (
+                <figure class="gallery__slide">
+                  <Img src={src} alt={`${fullName(p)}${scent}, photo ${i + 1} of ${images.length}`}
+                    sizes="(min-width: 900px) 55vw, 100vw" priority={shown && i === 0} />
+                </figure>
+              ))}
+            </div>
+            {images.length > 1 && <p class="gallery__count label" aria-hidden="true"><span data-index>1</span> / {images.length}</p>}
+            {images.length > 1 && (
+              <>
+                <button type="button" class="gallery__arrow gallery__arrow--prev" aria-label="Previous photo" data-step="-1"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M8 1.5 3.5 6 8 10.5"/></svg></button>
+                <button type="button" class="gallery__arrow gallery__arrow--next" aria-label="Next photo" data-step="1"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M4 1.5 8.5 6 4 10.5"/></svg></button>
+              </>
+            )}
+          </section>
+        );
+      })}
+
+      <div class="info">
+        <p class="label info__brand">{p.brand}</p>
+        <h1 class="info__name">{p.name}</h1>
+        {p.size && <p class="info__size">{p.size}</p>}
+        <p class="info__price">{priceLabel(p)}</p>
+        <p class:list={['status label', `status--${p.status}`]}>{statusLabel(p)}</p>
+
+        {p.variants?.length && (
+          <fieldset class="variants">
+            <legend class="label">Scent</legend>
+            <div class="chips">
+              {p.variants.map((v, i) => (
+                <label class="chip"><input type="radio" name="variant" value={i} checked={i === 0}
+                  data-href={messengerHref(p, v.name)} data-message={orderMessage(p, v.name)} data-gallery={galleryOf(i)} data-variant /><span>{v.name}</span></label>
+              ))}
+            </div>
+          </fieldset>
+        )}
+
+        <div data-main-order><OrderButtons product={p} /></div>
+        {p.status !== 'sold_out' && (
+          <button type="button" class="btn btn--outline btn--block add-to-cart" data-add-to-cart
+            data-item={JSON.stringify({ slug: p.slug, name: p.name, brand: p.brand, size: p.size, price: p.price, status: p.status, img: cartImg })}>
+            Add to cart
+          </button>
+        )}
+
+        {p.details && <p class="info__details">{p.details}</p>}
+
+        {scents.map(({ name, details, notes }, i) => {
+          const hasNotes = notes.top || notes.heart || notes.base;
+          return (details || hasNotes) && (
+            <div class="scent" data-scent={i} hidden={i > 0}>
+              {name && details && <h2 class="scent__name">{name}</h2>}
+              {details && <p class="scent__details">{details}</p>}
+              {hasNotes && (
+                <dl class="notes">
+                  {(['top', 'heart', 'base'] as const).filter((k) => notes[k]).map((k) => (
+                    <div><dt class="label">{k === 'top' ? 'Top' : k === 'heart' ? 'Heart' : 'Base'}</dt><dd>{notes[k]}</dd></div>
+                  ))}
+                </dl>
+              )}
+            </div>
+          );
+        })}
+
+        <div class="accordion">
+          {specs.length > 0 && (
+            <details open>
+              <summary class="label">Details</summary>
+              <dl class="specs">{specs.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+            </details>
+          )}
+          {p.care && (
+            <details>
+              <summary class="label">Care</summary>
+              <p>{p.care}</p>
+            </details>
+          )}
+          <details>
+            <summary class="label">Delivery &amp; gifting</summary>
+            <p>Same-day delivery across Metro Manila. Free shipping on orders over {peso(site.freeShippingThreshold)}.</p>
+            <p>Gift wrap + handwritten note available, {peso(site.giftWrapPrice)}, just mention it in your message.</p>
+          </details>
+          <details>
+            <summary class="label">Authenticity</summary>
+            <p>Authentic, guaranteed. {site.name} is an independent reseller and is not affiliated with {p.brand}.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <section class="related" aria-labelledby="related-title">
+      <h2 id="related-title">You may also like</h2>
+      <ul class="related__grid">
+        {related(p).map((q) => <li class="reveal"><ProductCard product={q} /></li>)}
+      </ul>
+    </section>
+  </div>
+
+  <div class="sticky-order" data-sticky aria-hidden="true" inert>
+    <div class="sticky-order__text">
+      <span class="sticky-order__name">{p.brand} {p.name}</span>
+      <span class="label sticky-order__price">{priceLabel(p)}</span>
+    </div>
+    <OrderButtons product={p} compact />
+  </div>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+</Base>
+
+<script>
+  // Gallery counter for each swipeable mobile track (one gallery per scent that has its own photos).
+  for (const track of document.querySelectorAll<HTMLElement>('[data-track]')) {
+    const index = track.parentElement!.querySelector('[data-index]');
+    track.addEventListener('scroll', () => {
+      if (index) index.textContent = String(Math.round(track.scrollLeft / track.clientWidth) + 1);
+    }, { passive: true });
+    // Desktop arrows (hidden on phones, which swipe): step one photo, wrapping at the ends.
+    for (const btn of track.parentElement!.querySelectorAll<HTMLElement>('[data-step]')) btn.addEventListener('click', () => {
+      const n = Math.round(track.scrollWidth / track.clientWidth), at = Math.round(track.scrollLeft / track.clientWidth);
+      track.scrollTo({ left: ((at + Number(btn.dataset.step) + n) % n) * track.clientWidth, behavior: 'smooth' });
+    });
+  }
+
+  // Sticky order bar (mobile): appears once the main buttons scroll out of view.
+  const main = document.querySelector('[data-main-order]');
+  const bar = document.querySelector<HTMLElement>('[data-sticky]');
+  if (main && bar) {
+    // A scroll check (not IntersectionObserver) so fast flings past the buttons can't skip the update.
+    let shown = false, queued = false;
+    const update = () => {
+      queued = false;
+      const show = main.getBoundingClientRect().bottom < 0;
+      if (show === shown) return;
+      shown = show;
+      bar.classList.toggle('is-visible', show);
+      bar.toggleAttribute('inert', !show);
+      bar.setAttribute('aria-hidden', String(!show));
+    };
+    addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  }
+
+  // Scent picker: show that scent's description and notes, and point every order link (main + sticky bar) at a message naming it.
+  document.addEventListener('change', (e) => {
+    const input = (e.target as Element).closest<HTMLInputElement>('[data-variant]');
+    if (!input) return;
+    // Photos: show that scent's gallery from its first photo; only animate when the gallery actually changes.
+    for (const g of document.querySelectorAll<HTMLElement>('[data-gallery]:not(input)')) {
+      const show = g.dataset.gallery === input.dataset.gallery;
+      if (show === !g.hidden) continue;
+      g.hidden = !show;
+      if (!show) continue;
+      g.querySelector('[data-track]')!.scrollLeft = 0;
+      g.classList.remove('is-entering');
+      void g.offsetWidth;
+      g.classList.add('is-entering');
+    }
+    for (const block of document.querySelectorAll<HTMLElement>('[data-scent]')) {
+      block.hidden = block.dataset.scent !== input.value;
+      if (block.hidden) continue;
+      block.classList.remove('is-entering');
+      void block.offsetWidth; // restart the blur-in even when clicking through scents quickly
+      block.classList.add('is-entering');
+    }
+    for (const a of document.querySelectorAll<HTMLAnchorElement>('[data-order="messenger"]')) a.href = input.dataset.href!;
+    for (const a of document.querySelectorAll<HTMLAnchorElement>('[data-order="instagram"]')) a.dataset.message = input.dataset.message;
+  });
+
+  // Instagram can't prefill DMs: copy the message, confirm with a toast, then let the link open ig.me.
+  const toast = document.querySelector<HTMLElement>('[data-toast]');
+  let timer: number;
+  function copy(text: string) {
+    if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text).catch(() => fallback(text));
+    fallback(text);
+  }
+  function fallback(text: string) {
+    const ta = Object.assign(document.createElement('textarea'), { value: text });
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.append(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>('[data-order="instagram"]');
+    if (!a || !toast) return;
+    copy(a.dataset.message || '');
+    toast.textContent = 'Message copied — paste it in the chat';
+    toast.classList.add('is-visible');
+    clearTimeout(timer);
+    timer = window.setTimeout(() => toast.classList.remove('is-visible'), 4000);
+  });
+</script>
+
+<style>
+  .crumbs { display: flex; flex-wrap: wrap; gap: 8px; padding-block: 20px; font-size: 11px; }
+  .crumbs a { text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+  .crumbs [aria-current] { opacity: 0.75; }
+
+  .pdp__grid { display: grid; gap: 32px; }
+
+  /* Mobile: swipeable, snapping track, edge to edge */
+  .gallery { position: relative; margin-inline: calc(var(--gutter) * -1); }
+  .gallery__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .gallery__track::-webkit-scrollbar { display: none; }
+  .gallery__slide { flex: 0 0 100%; margin: 0; scroll-snap-align: start; aspect-ratio: 4 / 5; }
+  .gallery__slide :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .gallery__arrow { display: none; }
+  @media (max-width: 899px) { .gallery__count { opacity: 0.55; } } /* phones: the 1 / 3 counter sits lightly over the photo */
+  .gallery__count { position: absolute; right: var(--gutter); bottom: 12px; background: var(--cream); padding: 4px 10px; font-size: 11px; margin: 0; }
+
+  .info__brand { margin: 0 0 8px; }
+  .info__name { font-size: clamp(34px, 4vw, 48px); margin-bottom: 8px; }
+  .info__size { margin: 0 0 16px; opacity: 0.85; }
+  .info__price { font-size: 18px; margin: 0 0 8px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 32px; }
+  .status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--forest); }
+  .status--pre_order::before { background: var(--gold); }
+  .status--sold_out::before { background: transparent; border: 1px solid var(--forest); }
+  .add-to-cart { margin-top: 12px; }
+  .info__details { margin: 40px 0 0; }
+  .variants { border: 0; padding: 0; margin: 0 0 32px; }
+  .variants legend { padding: 0; margin-bottom: 12px; font-size: 11px; }
+
+  .notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0 0; padding-top: 24px; border-top: 1px solid var(--gold); }
+  /* A scent option's own story, set apart from the product description by a hairline */
+  .scent:has(.scent__name) { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--limestone); }
+  .scent__name { font: 400 26px/1.2 var(--serif); margin: 0 0 8px; }
+  .scent__details { margin: 24px 0 0; }
+  .scent__name + .scent__details { margin-top: 0; }
+  /* Picking a scent: its name, description, then top → heart → base, come into focus like a scent opening up. The old one just vanishes. */
+  .gallery.is-entering { animation: note-in 450ms var(--ease-out) backwards; }
+  .is-entering :is(.scent__name, .scent__details, .notes > div) { animation: note-in 450ms var(--ease-out) backwards; }
+  .is-entering .notes > div:nth-child(1) { animation-delay: 70ms; }
+  .is-entering .notes > div:nth-child(2) { animation-delay: 140ms; }
+  .is-entering .notes > div:nth-child(3) { animation-delay: 210ms; }
+  @keyframes note-in { from { opacity: 0; filter: blur(6px); } }
+  .notes dt { margin-bottom: 4px; font-size: 11px; }
+  .notes dd { margin: 0; font-family: var(--serif); font-size: 19px; line-height: 1.3; }
+
+  .accordion { margin-top: 40px; border-top: 1px solid var(--limestone); }
+  .accordion details { border-bottom: 1px solid var(--limestone); }
+  .accordion summary { cursor: pointer; list-style: none; min-height: 56px; display: flex; align-items: center; justify-content: space-between; }
+  .accordion summary::-webkit-details-marker { display: none; }
+  .accordion summary::after { content: '+'; font-size: 18px; }
+  .accordion details[open] summary::after { content: '–'; }
+  .accordion details > :not(summary) { margin-top: 0; }
+  .accordion details > :last-child { padding-bottom: 20px; }
+  .specs div { display: flex; justify-content: space-between; gap: 16px; padding-block: 4px; }
+  .specs dt { opacity: 0.8; }
+  .specs dd { margin: 0; }
+
+  .related { padding-top: var(--section); }
+  .related__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 40px 16px; grid-template-columns: repeat(2, 1fr); }
+
+  .sticky-order {
+    position: fixed; inset: auto 0 0; z-index: 40; display: flex; align-items: center; gap: 16px;
+    padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom)); background: var(--cream);
+    border-top: 1px solid var(--limestone); transform: translateY(100%); transition: transform 400ms var(--ease);
+  }
+  .sticky-order.is-visible { transform: none; }
+  .sticky-order__text { display: grid; min-width: 0; flex: 1; }
+  .sticky-order__name { font-family: var(--serif); font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sticky-order__price { white-space: nowrap; font-size: 11px; }
+  .sticky-order :global(.order) { flex: none; }
+  .sticky-order :global(.btn) { padding-inline: 18px; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 96px; z-index: 60; transform: translate(-50%, 16px);
+    background: var(--forest); color: var(--cream); padding: 14px 20px; font-size: 14px;
+    opacity: 0; pointer-events: none; transition: opacity 400ms var(--ease), transform 400ms var(--ease);
+    max-width: calc(100vw - 32px);
+  }
+  .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (min-width: 900px) {
+    .pdp__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(48px, 6vw, 112px); align-items: start; }
+    .gallery { margin-inline: 0; }
+    /* Desktop shows the same swipe track as phones, with arrows, so the photos stay as tall as the info beside them */
+    .gallery__count { right: 16px; }
+    /* The photo stretches to the height of the info beside it (never shorter than 4:5), so there's no empty strip under it */
+    .gallery { align-self: stretch; min-height: 0; }
+    .gallery__track { height: 100%; }
+    .gallery__slide { height: 100%; min-width: 0; }
+    .gallery__arrow {
+      position: absolute; top: 50%; z-index: 1; display: grid; place-items: center; width: 44px; height: 44px; margin-top: -22px; padding: 0;
+      background: rgb(243 237 224 / 0.85); color: var(--forest); border: 0; border-radius: 50%; cursor: pointer;
+      transition: transform 300ms var(--ease), background 300ms var(--ease);
+    }
+    .gallery__arrow:hover { transform: scale(1.1); background: var(--cream); }
+    .gallery__arrow--prev { left: 16px; }
+    .gallery__arrow--next { right: 16px; }
+    .info { padding-top: 24px; } /* no longer sticky: it scrolls away with the page instead of pinning while the photos scroll */
+    .related__grid { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .sticky-order { display: none; }
+    .toast { bottom: 40px; }
+  }
+</style>

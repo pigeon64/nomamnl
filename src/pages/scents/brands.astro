@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Img from '../../components/Img.astro';
+import Icon from '../../components/Icon.astro';
+import { brands } from '../../data/brands';
+import { findImage } from '../../lib/images';
+import { products, slugify, breadcrumbLd } from '../../lib/products';
+
+// Every brand with scents gets a tile, straight from the products. src/data/brands.ts only puts featured
+// houses first (in its order) and gives their photo alt text; the rest follow by piece count, then A–Z.
+const scents = products.filter((p) => p.category === 'scents');
+const featured = brands.map((b) => b.slug);
+const rank = (slug: string) => (featured.includes(slug) ? featured.indexOf(slug) : featured.length);
+const tiles = [...new Set(scents.map((p) => p.brand))]
+  .map((name) => {
+    const slug = slugify(name);
+    return { slug, name, alt: brands.find((b) => b.slug === slug)?.alt ?? name,
+      count: scents.filter((p) => slugify(p.brand) === slug).length, img: findImage(`/images/brands/${slug}`) };
+  })
+  .sort((a, b) => rank(a.slug) - rank(b.slug) || b.count - a.count || a.name.localeCompare(b.name));
+---
+<Base overlayHeader title="Shop Luxury Scents by Brand"
+  description="Shop Diptyque, Le Labo and Byredo candles, diffusers and incense at Nomà. Authentic, gift-wrapped on request and delivered same-day in Metro Manila.">
+  <script type="application/ld+json" slot="head" set:html={breadcrumbLd([['Home', '/'], ['Scents', '/scents'], ['Shop by brand', '/scents/brands']])} />
+  <Hero image="scents-brands" title="Shop by brand" intro="The houses we carry, curated for the home." crumbs={[['Shop', '/#collections'], ['Scents', '/scents']]} />
+
+  <div class="container">
+    <ul class="brands">
+      {tiles.map((b, i) => (
+        <li class="reveal">
+          <a class="brand zoom" href={`/scents?brand=${b.slug}`}>
+            {b.img && <Img src={b.img} alt={b.alt} sizes="(min-width: 768px) 33vw, 100vw" priority={i === 0} />}
+            <span class="brand__text">
+              <span class="brand__name">{b.name}</span>
+              <span class="brand__count label">{b.count} {b.count === 1 ? 'piece' : 'pieces'}</span>
+              <span class="brand__cta label">Explore <Icon name="arrow" size={14} /></span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="next">Not sure where to start? <a class="link" href="/scents/notes">Shop by notes →</a></p>
+  </div>
+</Base>
+
+<style>
+  .brands { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  @media (min-width: 768px) { .brands { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+  .brand { position: relative; display: block; aspect-ratio: 4 / 5; color: var(--cream); text-decoration: none; background: var(--forest); }
+  .brand :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  /* Flat forest tint over photos so the cream name stays readable */
+  .brand:has(img)::after { content: ''; position: absolute; inset: 0; background: rgb(30 61 50 / 0.3); pointer-events: none; }
+  .brand__text { position: absolute; left: clamp(20px, 3vw, 32px); right: clamp(20px, 3vw, 32px); bottom: clamp(20px, 3vw, 32px); z-index: 1; display: grid; gap: 6px; }
+  .brand__name { font: 400 clamp(32px, 3vw, 40px)/1.05 var(--serif); text-wrap: balance; }
+  .brand__count { font-size: 11px; opacity: 0.85; }
+  .brand__cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 11px; }
+  .brand__cta :global(svg) { transition: transform 500ms var(--ease); }
+  .brand:hover .brand__cta :global(svg) { transform: translateX(4px); }
+  .brand { transition: transform 400ms var(--ease-out); }
+  .brand:hover, .brand:focus-visible { transform: scale(1.04); z-index: 1; } /* the whole tile grows, over its neighbours */
+  .brand:focus-visible { outline-offset: 4px; }
+  .next { text-align: center; margin: clamp(48px, 6vw, 80px) auto 0; max-width: none; }
+  .next .link { margin-left: 6px; }
+</style>
