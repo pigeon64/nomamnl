@@ -24,7 +24,7 @@ const firstGallery = p.variants?.length ? galleryOf(0) : 'main';
 const specs = [['Size', p.size], ['Burn time', p.burnTime]].filter(([, v]) => v);
 const cartImg = (thumbOf(p) ?? p.images[0])?.replace(/^\/images\//, '/_img/').replace(/\.\w+$/, '-400.webp') ?? '';
 // JPG on cream made by scripts/images.mjs: share previews can't be relied on to show transparency or WebP.
-const og = p.images[0].replace(/^\/images\//, '/_img/').replace(/\.\w+$/, '-og.jpg');
+const og = p.images[0]?.replace(/^\/images\//, '/_img/').replace(/\.\w+$/, '-og.jpg');
 const description = `${fullName(p)}${p.price ? `, ${peso(p.price)}` : ''}. Authentic, gift-wrapped on request and delivered same-day in Metro Manila by ${site.name}.`;
 ---
 <Base title={fullName(p)} description={description} image={og}>

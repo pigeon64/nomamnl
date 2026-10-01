@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-30T03:38:34.037Z",
+  "fetchedAt": "2026-10-01T05:45:38.121Z",
   "columns": [
     "slug",
     "brand",
@@ -243,6 +243,66 @@
       "name": "Scented Candle",
       "size": "200g",
       "price": 6000,
+      "status": "in_stock"
+    },
+    "smeg-4pc-cutlery-set": {
+      "brand": "Smeg",
+      "name": "4pc Cutlery Set",
+      "price": 1200,
+      "status": "in_stock"
+    },
+    "marimekko-uniko-oiva-2pc-cups": {
+      "brand": "Marimekko",
+      "name": "Uniko Oiva 2pc Cups",
+      "price": 2300,
+      "status": "in_stock"
+    },
+    "marimekko-uniko-oiva-breakfast-set": {
+      "brand": "Marimekko",
+      "name": "Uniko Oiva Breakfast Set",
+      "price": 6400,
+      "status": "in_stock"
+    },
+    "marimekko-mug-set-20cl": {
+      "brand": "Marimekko",
+      "name": "Mug Set 20cl",
+      "price": 2800,
+      "status": "in_stock"
+    },
+    "marimekko-blue-bottle-coffee": {
+      "brand": "Marimekko",
+      "name": "Blue Bottle Coffee",
+      "price": 3400,
+      "status": "in_stock"
+    },
+    "marimekko-4pc-bowls": {
+      "brand": "Marimekko",
+      "name": "4pc Bowls",
+      "price": 3200,
+      "status": "in_stock"
+    },
+    "le-creuset-6pc-bowls": {
+      "brand": "Le Creuset",
+      "name": "6pc Bowls",
+      "price": 4700,
+      "status": "in_stock"
+    },
+    "royal-albert-cup-saucer-and-bread-plate": {
+      "brand": "Royal Albert",
+      "name": "Cup, Saucer and Bread Plate",
+      "price": 7600,
+      "status": "in_stock"
+    },
+    "royal-albert-4pc-teaspoon-set": {
+      "brand": "Royal Albert",
+      "name": "4pc Teaspoon Set",
+      "price": 5800,
+      "status": "in_stock"
+    },
+    "royal-albert-new-country-roses-mug": {
+      "brand": "Royal Albert",
+      "name": "New Country Roses Mug",
+      "price": 2200,
       "status": "in_stock"
     }
   }

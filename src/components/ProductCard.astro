@@ -11,7 +11,7 @@ const badge = p.status === 'sold_out' ? 'Sold out' : p.status === 'pre_order' ? 
 ---
 <a class="card" href={`/products/${p.slug}`}>
   <div class="card__media">
-    <Img src={thumb ?? p.images[0]} alt={fullName(p)} sizes={sizes} priority={priority} />
+    {(thumb ?? p.images[0]) && <Img src={thumb ?? p.images[0]} alt={fullName(p)} sizes={sizes} priority={priority} />}
     {hover && <Img class="card__alt" src={hover} alt="" sizes={sizes} />}
     {badge && <span class="card__badge label">{badge}</span>}
   </div>
