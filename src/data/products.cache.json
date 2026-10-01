@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-01T05:45:38.121Z",
+  "fetchedAt": "2026-10-01T06:04:35.702Z",
   "columns": [
     "slug",
     "brand",
@@ -303,6 +303,12 @@
       "brand": "Royal Albert",
       "name": "New Country Roses Mug",
       "price": 2200,
+      "status": "in_stock"
+    },
+    "jo-malone-incense": {
+      "brand": "Jo Malone London",
+      "name": "Incense",
+      "price": 2600,
       "status": "in_stock"
     }
   }

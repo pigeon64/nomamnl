@@ -1709,5 +1709,47 @@
     "care": "",
     "images": [],
     "featured": false
+  },
+  {
+    "slug": "jo-malone-incense",
+    "name": "Incense",
+    "brand": "Jo Malone London",
+    "category": "scents",
+    "type": "incense",
+    "price": 0,
+    "status": "in_stock",
+    "preorderLeadTime": "",
+    "size": "",
+    "burnTime": "",
+    "scentFamily": "woody",
+    "notes": {
+      "top": "",
+      "heart": "",
+      "base": ""
+    },
+    "details": "Jo Malone London's incense, made in the spirit of the Japanese ritual of kōdō. Dark Amber is warm amber cut with ginger; Hinoki & Cedarwood is a forest-bathing blend of Japanese cypress and cedarwood, made for the evening. 30 sticks, about 25–30 minutes each, with a holder.",
+    "care": "Burn on a heat-proof holder in a well-ventilated room, away from anything flammable. Store in a cool, dry place.",
+    "images": [
+      "/images/products/jo-malone-incense/1.webp"
+    ],
+    "variants": [
+      {
+        "name": "Dark Amber",
+        "notes": {
+          "top": "Ginger",
+          "heart": "Amber",
+          "base": ""
+        }
+      },
+      {
+        "name": "Hinoki & Cedarwood",
+        "notes": {
+          "top": "",
+          "heart": "Hinoki",
+          "base": "Cedarwood"
+        }
+      }
+    ],
+    "featured": false
   }
 ]
