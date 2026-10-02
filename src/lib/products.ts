@@ -48,7 +48,7 @@ export const slugify = (s: string) =>
 // schema.org BreadcrumbList for <script type="application/ld+json">. Paths are site-relative.
 export const breadcrumbLd = (items: [name: string, path: string][]) => JSON.stringify({
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
-  itemListElement: items.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${site.url}${path}` })),
+  itemListElement: items.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${site.url}${path.endsWith('/') ? path : `${path}/`}` })),
 });
 
 // schema.org Product for <script type="application/ld+json">. No price → no offers (Google rejects a price of 0).
@@ -68,7 +68,7 @@ export const priceLabel = (p: Product) => (p.price ? peso(p.price) : 'Price on r
 
 export const fullName = (p: Product) => [p.brand, p.name, p.size].filter(Boolean).join(' ');
 
-export const productUrl = (p: Product) => `${site.url}/products/${p.slug}`;
+export const productUrl = (p: Product) => `${site.url}/products/${p.slug}/`;
 
 export const statusLabel = (p: Product) =>
   p.status === 'sold_out' ? 'Sold out'
